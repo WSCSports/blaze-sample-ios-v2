@@ -1,0 +1,10 @@
+{
+  "aps": {
+    "alert": {
+      "title": "New Moment available!",
+      "body": "Check out the latest moment now."
+    },
+    "sound": "default"
+  },
+  "WscIasData": "{\"Id\":\"6825b3aa3f15f6eb648ee3aa\",\"Type\":\"Moment\"}"
+}

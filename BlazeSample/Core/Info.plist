@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BLAZE_AD_UNIT</key>
+	<string>$(BLAZE_AD_UNIT)</string>
+	<key>BLAZE_API_KEY</key>
+	<string>$(BLAZE_API_KEY)</string>
+	<key>BLAZE_CACHE_SIZE</key>
+	<string>$(BLAZE_CACHE_SIZE)</string>
+	<key>BLAZE_MOMENTS_CONTAINER_TAB_LABEL</key>
+	<string>$(BLAZE_MOMENTS_CONTAINER_TAB_LABEL)</string>
+	<key>BLAZE_MOMENTS_GRID_LABEL</key>
+	<string>$(BLAZE_MOMENTS_GRID_LABEL)</string>
+	<key>BLAZE_MOMENTS_ROW_LABEL</key>
+	<string>$(BLAZE_MOMENTS_ROW_LABEL)</string>
+	<key>BLAZE_STORIES_GRID_LABEL</key>
+	<string>$(BLAZE_STORIES_GRID_LABEL)</string>
+	<key>BLAZE_STORIES_ROW_LABEL</key>
+	<string>$(BLAZE_STORIES_ROW_LABEL)</string>
+	<key>BLAZE_TEMPLATE_ID</key>
+	<string>$(BLAZE_TEMPLATE_ID)</string>
+	<key>BLAZE_VIDEOS_GRID_LABEL</key>
+	<string>$(BLAZE_VIDEOS_GRID_LABEL)</string>
+	<key>BLAZE_VIDEOS_ROW_LABEL</key>
+	<string>$(BLAZE_VIDEOS_ROW_LABEL)</string>
+	<key>BLAZE_STORIES_ADS_CUSTOM_NATIVE_LABEL</key>
+	<string>$(BLAZE_STORIES_ADS_CUSTOM_NATIVE_LABEL)</string>
+	<key>BLAZE_STORIES_ADS_BANNER_LABEL</key>
+	<string>$(BLAZE_STORIES_ADS_BANNER_LABEL)</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3940256099942544~3347511713</string>
+	<key>CFBundleURLSchemes</key>
+	<string>blazesample</string>
+</dict>
+</plist>
