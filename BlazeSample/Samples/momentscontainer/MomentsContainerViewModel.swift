@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import BlazeSDK
+import UIKit
 
 ///
 /// This ViewModel is used to demonstrate how to use BlazeMomentsPlayerContainer.
@@ -19,12 +20,36 @@ struct MomentsContainerValues {
     static let momentsLabel = ConfigManager.momentsGridLabel
     static let instantMomentsContainerId = "instant-moments-container-unique-id"
     static let lazyMomentsContainerId = "lazy-moments-container-unique-id"
+    static let momentsContainerId = "Moments-container-unique-id"
+    static let momentsContainerTabLabel1 = ConfigManager.momentContainerLabel1
+    static let momentsContainerTabLabel2 = ConfigManager.momentContainerLabel2
 }
 
 final class MomentsContainerViewModel {
 
     let onMomentsTabSelected = PassthroughSubject<Void, Never>()
     
+    lazy var tabs: [BlazeMomentsContainerTabItem] = {
+        return [
+            BlazeMomentsContainerTabItem.withDifferentIcons(
+                containerId: "moments-container-trending",
+                title: "Trending",
+                dataSource: .labels(.singleLabel(MomentsContainerValues.momentsContainerTabLabel1)),
+                selectedIcon: UIImage(named: "tabs_trending_icon_selected")!,
+                unselectedIcon: UIImage(named: "tabs_trending_icon")!,
+                momentsAdsConfigType: .firstAvailableAdsConfig
+            ),
+            BlazeMomentsContainerTabItem.withDifferentIcons(
+                containerId: "moments-container-for-you",
+                title: "For You",
+                dataSource: .labels(.singleLabel(MomentsContainerValues.momentsContainerTabLabel2)),
+                selectedIcon: UIImage(named: "tabs_for_you_icon_selected")!,
+                unselectedIcon: UIImage(named: "tabs_for_you_icon")!,
+                momentsAdsConfigType: .firstAvailableAdsConfig
+            )
+        ]
+    }()
+        
     var momentsPlayerStyle: BlazeMomentsPlayerStyle = {
         var style = BlazeMomentsPlayerStyle.base()
         style.playerDisplayMode = .resizeAspectFillCenterCrop
@@ -55,6 +80,16 @@ final class MomentsContainerViewModel {
         return style
     }()
 
+    lazy var momentsTabsContainer: BlazeMomentsPlayerContainerTabs = {
+        return BlazeMomentsPlayerContainerTabs(
+            tabs: tabs,
+            playerStyle: momentsPlayerStyle,
+            tabsStyle: BlazePlayerTabsStyle.base(),
+            containerTabsDelegate: createMomentsContainerDelegate(),
+            containerSourceId: MomentsContainerValues.momentsContainerId
+        )
+    }()
+
     func triggerMomentsTabSelected() {
         onMomentsTabSelected.send(())
     }
@@ -79,3 +114,27 @@ extension MomentsContainerViewModel {
         )
     }
 }
+
+extension MomentsContainerViewModel {
+    func createMomentsContainerDelegate() -> BlazePlayerContainerTabsDelegate {
+        return BlazePlayerContainerTabsDelegate { params in
+            Logger.shared.log("ContainerTabsDelegate onDataLoadStarted", object: params)
+        } onDataLoadComplete: { params in
+            Logger.shared.log("ContainerTabsDelegate onDataLoadComplete", object: params)
+        } onPlayerDidAppear: { params in
+            Logger.shared.log("ContainerTabsDelegate onPlayerDidAppear", object: params)
+        } onPlayerDidDismiss: { params in
+            Logger.shared.log("ContainerTabsDelegate onPlayerDidDismiss", object: params)
+        } onTriggerCTA: { params in
+            Logger.shared.log("ContainerTabsDelegate onTriggerCTA", object: params)
+            return false
+        } onPlayerEventTriggered: { params in
+            Logger.shared.log("ContainerTabsDelegate onPlayerEventTriggered", object: params)
+        } onTriggerCustomActionButton: { params in
+            Logger.shared.log("ContainerTabsDelegate onTriggerCustomActionButton", object: params)
+        } onTabSelected: { params in
+            Logger.shared.log("ContainerTabsDelegate onTabSelected", object: params)
+        }
+    }
+}
+

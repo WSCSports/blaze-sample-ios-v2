@@ -66,6 +66,14 @@ enum ConfigManager {
     static var storiesAdsBannerLabel: String {
         getValue(for: "BLAZE_STORIES_ADS_BANNER_LABEL")
     }
+    
+    static var momentContainerLabel1: String {
+        getValue(for: "BLAZE_MOMENTS_CONTAINER_LABEL_1")
+    }
+    
+    static var momentContainerLabel2: String {
+        getValue(for: "BLAZE_MOMENTS_CONTAINER_LABEL_2")
+    }
 
     private static func getValue(for key: String) -> String {
         guard let value = Bundle.main.infoDictionary?[key] as? String else {

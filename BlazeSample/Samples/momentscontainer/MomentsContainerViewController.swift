@@ -30,7 +30,10 @@ final class MomentsContainerViewController: UITabBarController {
         let momentsVC = MomentsViewController(viewModel: viewModel)
         momentsVC.tabBarItem = UITabBarItem(title: "Moments", image: UIImage(named: "moments_tab"), tag: 1)
 
-        viewControllers = [homeVC, momentsVC]
+        let momentsTabsVC = MomentsContainerTabsViewController(viewModel: viewModel)
+        momentsTabsVC.tabBarItem = UITabBarItem(title: "Tabs", image: UIImage(named: "moments_tab"), tag: 2)
+
+        viewControllers = [homeVC, momentsVC, momentsTabsVC]
 
         bindViewModel()
         prepareMomentsContainer()

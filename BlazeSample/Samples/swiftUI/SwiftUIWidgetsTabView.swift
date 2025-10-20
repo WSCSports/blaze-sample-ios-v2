@@ -27,6 +27,13 @@ struct SwiftUIWidgetsTabView: View {
                     Text("Moments Container")
                 }
                 .tag(1)
+            
+            SwiftUIMomentsContainerTabsView()
+                .tabItem {
+                    Image("moments_tab")
+                    Text("Moments Tabs")
+                }
+                .tag(2)
         }
         .environmentObject(viewModel)
         .customBackButton()
