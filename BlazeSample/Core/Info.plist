@@ -28,6 +28,10 @@
 	<string>$(BLAZE_STORIES_ADS_CUSTOM_NATIVE_LABEL)</string>
 	<key>BLAZE_STORIES_ADS_BANNER_LABEL</key>
 	<string>$(BLAZE_STORIES_ADS_BANNER_LABEL)</string>
+	<key>BLAZE_MOMENTS_CONTAINER_LABEL_1</key>
+	<string>$(BLAZE_MOMENTS_CONTAINER_LABEL_1)</string>
+	<key>BLAZE_MOMENTS_CONTAINER_LABEL_2</key>
+	<string>$(BLAZE_MOMENTS_CONTAINER_LABEL_2)</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3940256099942544~3347511713</string>
 	<key>CFBundleURLSchemes</key>
