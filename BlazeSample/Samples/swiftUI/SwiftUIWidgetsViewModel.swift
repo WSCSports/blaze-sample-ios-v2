@@ -14,7 +14,7 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
     @Published var storiesGridViewModel: BlazeSwiftUIStoriesWidgetViewModel!
     @Published var momentsRowViewModel: BlazeSwiftUIMomentsWidgetViewModel!
     @Published var momentsPlayerContainer: BlazeMomentsPlayerContainer!
-    @Published var momentsPlayerContainerTabs: BlazeMomentsPlayerContainerTabs!
+    @Published var momentsPlayerContainerTabs: BlazeMomentsPlayerContainerTabs?
 
     private lazy var widgetDelegate = WidgetsDelegate.create(identifier: "SwiftUI")
     private lazy var containerDelegate = createMomentContainerDelegate()
@@ -34,7 +34,6 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
     init () {
         setupWidgets()
         setupMomentsContainer()
-        setupMomentsTabsContainer()
     }
         
     private func setupWidgets() {
@@ -85,7 +84,8 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
         )
     }
     
-    private func setupMomentsTabsContainer() {
+    func setupMomentsTabsContainer() {
+        cleanupMomentsTabsContainer()
         
         let tabs = [
             BlazeMomentsContainerTabItem.withDifferentIcons(
@@ -114,8 +114,11 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
             containerSourceId: "swiftui-moments-container-tabs"
         )
         
-        // Prepare all tabs for faster loading
         momentsPlayerContainerTabs?.prepareAllTabs()
+    }
+    
+    func cleanupMomentsTabsContainer() {
+        momentsPlayerContainerTabs = nil
     }
     
     func reloadData(progressType: BlazeProgressType) {

@@ -15,6 +15,16 @@ struct SwiftUIMomentsContainerTabsView: View {
     var body: some View {
         if let tabsContainer = viewModel.momentsPlayerContainerTabs {
             BlazeSwiftUIMomentsPlayerContainerTabsView(tabsContainer: tabsContainer)
+                .onDisappear {
+                    // Clean up container to prevent weak reference issues
+                    viewModel.cleanupMomentsTabsContainer()
+                }
+        } else {
+            Color.clear
+                .onAppear {
+                    // Create container when view appears
+                    viewModel.setupMomentsTabsContainer()
+                }
         }
     }
 }
