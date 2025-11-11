@@ -14,6 +14,7 @@ enum AppRoute: Hashable {
     case playerStyle
     case ads
     case swiftUI
+    case videosInline
     
     case storiesRow
     case storiesGrid
@@ -22,4 +23,9 @@ enum AppRoute: Hashable {
     case videoRow
     case videoGrid
     case widgetsFeedDemo
+    
+    // Videos Inline Routes
+    case simpleFeedExample
+    case videosFeed
+    case playerControllerExample
 }

@@ -19,6 +19,7 @@ struct HomeView: View {
         .init(icon: "playerStyle", title: "Player style", subtitle: "Explore options and customizations", route: .playerStyle),
         .init(icon: "ads", title: "Ads", subtitle: "SDK integration of custom native and IMA ads", route: .ads),
         .init(icon: "swiftUI", title: "SwiftUI", subtitle: "SwiftUI widgets implementation", route: .swiftUI),
+        .init(icon: "playerStyle", title: "Videos Inline", subtitle: "Auto-playing video feed with inline players", route: .videosInline),
     ]
     
     var body: some View {
