@@ -34,6 +34,14 @@ struct DefaultAppViewFactory: AppViewFactory {
             wrapped(AdsViewController(), title: "Ads")
         case .swiftUI:
             SwiftUIWidgetsTabView()
+        case .videosInline:
+            VideosInlineListView()
+        case .simpleFeedExample:
+            VideoPlayerExamples.SimpleFeedExample()
+        case .videosFeed:
+            VideosPaginatingFeedView()
+        case .playerControllerExample:
+            VideoPlayerExamples.PlayerControllerExample()
         }
     }
 

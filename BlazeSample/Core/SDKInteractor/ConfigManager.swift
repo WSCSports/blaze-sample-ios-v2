@@ -43,6 +43,10 @@ enum ConfigManager {
         getValue(for: "BLAZE_VIDEOS_ROW_LABEL")
     }
 
+    static var videoInlineLabel: String {
+        getValue(for: "BLAZE_VIDEO_INLINE_LABEL")
+    }
+
     static var momentsContainerTabLabel: String {
         getValue(for: "BLAZE_MOMENTS_CONTAINER_TAB_LABEL")
     }

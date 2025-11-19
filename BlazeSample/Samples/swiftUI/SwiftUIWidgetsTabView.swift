@@ -9,8 +9,9 @@ import SwiftUI
 
 struct SwiftUIWidgetsTabView: View {
     
-    @ObservedObject private var viewModel: SwiftUIWidgetsViewModel = .init()
+    @StateObject private var viewModel: SwiftUIWidgetsViewModel = .init()
     @State private var selectedTab = 0
+    
     
     var body: some View {
         TabView(selection: $selectedTab) {
