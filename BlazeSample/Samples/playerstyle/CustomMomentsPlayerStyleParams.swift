@@ -77,9 +77,6 @@ extension BlazeMomentsPlayerStyle {
         // First time slide appearance
         applyFirstTimeSlideStyle()
         
-        // Follow entity style appearance
-        applyFollowEntityStyle()
-        
         return self
     }
     
@@ -310,24 +307,5 @@ extension BlazeMomentsPlayerStyle {
                 isVisible: true
             )
         ]
-    }
-    
-    mutating func applyFollowEntityStyle() {
-        // Configure follow entity visibility and entity type
-        followEntity.isVisible = true
-        // First, try to find the player entity, then the team, and finally retrieve the first entity from the backend response.
-        followEntity.entityType = .player(fallbackType: .team(fallbackType: .firstAvailable))
-        
-        // Configure follow state (when entity is followed)
-        let followColor = UIColor(hex: "00B27C") ?? .green
-        followEntity.followState.avatar.borderColor = followColor
-        followEntity.followState.chip.backgroundColor = followColor
-        followEntity.followState.chip.iconColor = .black
-        
-        // Configure unfollow state (when entity is not followed)
-        followEntity.unfollowState.avatar.borderColor = .white
-        followEntity.unfollowState.chip.backgroundColor = .white
-        followEntity.unfollowState.chip.iconColor = .black
-        followEntity.unfollowState.chip.contentSource = .text
     }
 }
