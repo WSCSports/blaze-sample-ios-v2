@@ -7,7 +7,7 @@
 
 import UIKit
 import BlazeSDK
-import SwiftUICore
+import SwiftUI
 
 ///
 /// `VideosRowViewController` is a view controller that displays a grid of Moments content.
