@@ -7,7 +7,7 @@
 
 import UIKit
 import BlazeSDK
-import SwiftUICore
+import SwiftUI
 
 
 ///
