@@ -47,6 +47,7 @@ class VideosRowViewController: BaseWidgetEditOptionsViewController {
         widget.widgetIdentifier = viewModel.currentWidgetType.rawValue
         widget.widgetDelegate = viewModel.widgetDelegate
         widget.shouldOrderWidgetByReadStatus = true
+        widget.videosPlaybackConfiguration?.multiAspectRatio = true // Allow multi aspect ratio feature on this widget
         widget.reloadData(progressType: .skeleton)
         widget.embedInView(contentView)
         self.widgetView = widget

@@ -395,7 +395,7 @@
 			repositoryURL = "https://github.com/WSCSports/BlazeSDK-iOS-Specs-Private";
 			requirement = {
 				kind = exactVersion;
-				version = 1.14.0;
+				version = 1.14.1;
 			};
 		};
 		503374A62E0EAB84007F1F48 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
