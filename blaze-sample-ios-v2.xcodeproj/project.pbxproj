@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		152583B82ECF861F00675700 /* BlazeGAM in Frameworks */ = {isa = PBXBuildFile; productRef = 152583B72ECF861F00675700 /* BlazeGAM */; };
-		152583BA2ECF861F00675700 /* BlazeIMA in Frameworks */ = {isa = PBXBuildFile; productRef = 152583B92ECF861F00675700 /* BlazeIMA */; };
-		152583BC2ECF861F00675700 /* BlazeSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 152583BB2ECF861F00675700 /* BlazeSDK */; };
+		15CF6F1C2ED740FA001D8DB5 /* BlazeGAM in Frameworks */ = {isa = PBXBuildFile; productRef = 15CF6F1B2ED740FA001D8DB5 /* BlazeGAM */; };
+		15CF6F1E2ED740FA001D8DB5 /* BlazeIMA in Frameworks */ = {isa = PBXBuildFile; productRef = 15CF6F1D2ED740FA001D8DB5 /* BlazeIMA */; };
+		15CF6F202ED740FA001D8DB5 /* BlazeSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 15CF6F1F2ED740FA001D8DB5 /* BlazeSDK */; };
 		503374A82E0EAB84007F1F48 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 503374A72E0EAB84007F1F48 /* FirebaseCore */; };
 		503374AA2E0EAB84007F1F48 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 503374A92E0EAB84007F1F48 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
@@ -53,10 +53,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				503374AA2E0EAB84007F1F48 /* FirebaseMessaging in Frameworks */,
-				152583BC2ECF861F00675700 /* BlazeSDK in Frameworks */,
-				152583BA2ECF861F00675700 /* BlazeIMA in Frameworks */,
+				15CF6F202ED740FA001D8DB5 /* BlazeSDK in Frameworks */,
+				15CF6F1E2ED740FA001D8DB5 /* BlazeIMA in Frameworks */,
 				503374A82E0EAB84007F1F48 /* FirebaseCore in Frameworks */,
-				152583B82ECF861F00675700 /* BlazeGAM in Frameworks */,
+				15CF6F1C2ED740FA001D8DB5 /* BlazeGAM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,9 +101,9 @@
 			packageProductDependencies = (
 				503374A72E0EAB84007F1F48 /* FirebaseCore */,
 				503374A92E0EAB84007F1F48 /* FirebaseMessaging */,
-				152583B72ECF861F00675700 /* BlazeGAM */,
-				152583B92ECF861F00675700 /* BlazeIMA */,
-				152583BB2ECF861F00675700 /* BlazeSDK */,
+				15CF6F1B2ED740FA001D8DB5 /* BlazeGAM */,
+				15CF6F1D2ED740FA001D8DB5 /* BlazeIMA */,
+				15CF6F1F2ED740FA001D8DB5 /* BlazeSDK */,
 			);
 			productName = BlazeSampleNew;
 			productReference = 50A610152DF7045E002BDDBB /* Blaze Sample.app */;
@@ -135,7 +135,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				503374A62E0EAB84007F1F48 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				152583B62ECF861F00675700 /* XCRemoteSwiftPackageReference "BlazeSDK-iOS-Specs-Private" */,
+				15CF6F1A2ED740FA001D8DB5 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 50A610162DF7045E002BDDBB /* Products */;
@@ -390,12 +390,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		152583B62ECF861F00675700 /* XCRemoteSwiftPackageReference "BlazeSDK-iOS-Specs-Private" */ = {
+		15CF6F1A2ED740FA001D8DB5 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/WSCSports/BlazeSDK-iOS-Specs-Private";
+			repositoryURL = "https://github.com/WSCSports/blaze-specs-ios";
 			requirement = {
-				kind = exactVersion;
-				version = 1.14.1;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.14.2;
 			};
 		};
 		503374A62E0EAB84007F1F48 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -409,19 +409,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		152583B72ECF861F00675700 /* BlazeGAM */ = {
+		15CF6F1B2ED740FA001D8DB5 /* BlazeGAM */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 152583B62ECF861F00675700 /* XCRemoteSwiftPackageReference "BlazeSDK-iOS-Specs-Private" */;
+			package = 15CF6F1A2ED740FA001D8DB5 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */;
 			productName = BlazeGAM;
 		};
-		152583B92ECF861F00675700 /* BlazeIMA */ = {
+		15CF6F1D2ED740FA001D8DB5 /* BlazeIMA */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 152583B62ECF861F00675700 /* XCRemoteSwiftPackageReference "BlazeSDK-iOS-Specs-Private" */;
+			package = 15CF6F1A2ED740FA001D8DB5 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */;
 			productName = BlazeIMA;
 		};
-		152583BB2ECF861F00675700 /* BlazeSDK */ = {
+		15CF6F1F2ED740FA001D8DB5 /* BlazeSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 152583B62ECF861F00675700 /* XCRemoteSwiftPackageReference "BlazeSDK-iOS-Specs-Private" */;
+			package = 15CF6F1A2ED740FA001D8DB5 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */;
 			productName = BlazeSDK;
 		};
 		503374A72E0EAB84007F1F48 /* FirebaseCore */ = {
