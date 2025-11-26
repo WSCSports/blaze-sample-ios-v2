@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		503374A12E0EAB4C007F1F48 /* BlazeGAM in Frameworks */ = {isa = PBXBuildFile; productRef = 503374A02E0EAB4C007F1F48 /* BlazeGAM */; };
-		503374A32E0EAB4C007F1F48 /* BlazeIMA in Frameworks */ = {isa = PBXBuildFile; productRef = 503374A22E0EAB4C007F1F48 /* BlazeIMA */; };
-		503374A52E0EAB4C007F1F48 /* BlazeSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 503374A42E0EAB4C007F1F48 /* BlazeSDK */; };
+		15CF6F1C2ED740FA001D8DB5 /* BlazeGAM in Frameworks */ = {isa = PBXBuildFile; productRef = 15CF6F1B2ED740FA001D8DB5 /* BlazeGAM */; };
+		15CF6F1E2ED740FA001D8DB5 /* BlazeIMA in Frameworks */ = {isa = PBXBuildFile; productRef = 15CF6F1D2ED740FA001D8DB5 /* BlazeIMA */; };
+		15CF6F202ED740FA001D8DB5 /* BlazeSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 15CF6F1F2ED740FA001D8DB5 /* BlazeSDK */; };
 		503374A82E0EAB84007F1F48 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 503374A72E0EAB84007F1F48 /* FirebaseCore */; };
 		503374AA2E0EAB84007F1F48 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 503374A92E0EAB84007F1F48 /* FirebaseMessaging */; };
-		D9E5A6652EC0929400543E50 /* GoogleInteractiveMediaAds in Frameworks */ = {isa = PBXBuildFile; productRef = D9E5A6642EC0929400543E50 /* GoogleInteractiveMediaAds */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,12 +52,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				503374A52E0EAB4C007F1F48 /* BlazeSDK in Frameworks */,
-				503374A32E0EAB4C007F1F48 /* BlazeIMA in Frameworks */,
-				D9E5A6652EC0929400543E50 /* GoogleInteractiveMediaAds in Frameworks */,
 				503374AA2E0EAB84007F1F48 /* FirebaseMessaging in Frameworks */,
+				15CF6F202ED740FA001D8DB5 /* BlazeSDK in Frameworks */,
+				15CF6F1E2ED740FA001D8DB5 /* BlazeIMA in Frameworks */,
 				503374A82E0EAB84007F1F48 /* FirebaseCore in Frameworks */,
-				503374A12E0EAB4C007F1F48 /* BlazeGAM in Frameworks */,
+				15CF6F1C2ED740FA001D8DB5 /* BlazeGAM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,12 +99,11 @@
 			);
 			name = "blaze-sample-ios-v2";
 			packageProductDependencies = (
-				503374A02E0EAB4C007F1F48 /* BlazeGAM */,
-				503374A22E0EAB4C007F1F48 /* BlazeIMA */,
-				503374A42E0EAB4C007F1F48 /* BlazeSDK */,
 				503374A72E0EAB84007F1F48 /* FirebaseCore */,
 				503374A92E0EAB84007F1F48 /* FirebaseMessaging */,
-				D9E5A6642EC0929400543E50 /* GoogleInteractiveMediaAds */,
+				15CF6F1B2ED740FA001D8DB5 /* BlazeGAM */,
+				15CF6F1D2ED740FA001D8DB5 /* BlazeIMA */,
+				15CF6F1F2ED740FA001D8DB5 /* BlazeSDK */,
 			);
 			productName = BlazeSampleNew;
 			productReference = 50A610152DF7045E002BDDBB /* Blaze Sample.app */;
@@ -137,9 +134,8 @@
 			mainGroup = 50A6100C2DF7045E002BDDBB;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5033749F2E0EAB4C007F1F48 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */,
 				503374A62E0EAB84007F1F48 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				D9E5A6632EC0929400543E50 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */,
+				15CF6F1A2ED740FA001D8DB5 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 50A610162DF7045E002BDDBB /* Products */;
@@ -394,12 +390,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5033749F2E0EAB4C007F1F48 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */ = {
+		15CF6F1A2ED740FA001D8DB5 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/WSCSports/blaze-specs-ios.git";
+			repositoryURL = "https://github.com/WSCSports/blaze-specs-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.10.4;
+				minimumVersion = 1.14.2;
 			};
 		};
 		503374A62E0EAB84007F1F48 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -410,30 +406,22 @@
 				minimumVersion = 11.15.0;
 			};
 		};
-		D9E5A6632EC0929400543E50 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-interactive-media-ads-ios";
-			requirement = {
-				kind = exactVersion;
-				version = 3.27.4;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		503374A02E0EAB4C007F1F48 /* BlazeGAM */ = {
+		15CF6F1B2ED740FA001D8DB5 /* BlazeGAM */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5033749F2E0EAB4C007F1F48 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */;
+			package = 15CF6F1A2ED740FA001D8DB5 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */;
 			productName = BlazeGAM;
 		};
-		503374A22E0EAB4C007F1F48 /* BlazeIMA */ = {
+		15CF6F1D2ED740FA001D8DB5 /* BlazeIMA */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5033749F2E0EAB4C007F1F48 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */;
+			package = 15CF6F1A2ED740FA001D8DB5 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */;
 			productName = BlazeIMA;
 		};
-		503374A42E0EAB4C007F1F48 /* BlazeSDK */ = {
+		15CF6F1F2ED740FA001D8DB5 /* BlazeSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5033749F2E0EAB4C007F1F48 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */;
+			package = 15CF6F1A2ED740FA001D8DB5 /* XCRemoteSwiftPackageReference "blaze-specs-ios" */;
 			productName = BlazeSDK;
 		};
 		503374A72E0EAB84007F1F48 /* FirebaseCore */ = {
@@ -445,11 +433,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 503374A62E0EAB84007F1F48 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
-		};
-		D9E5A6642EC0929400543E50 /* GoogleInteractiveMediaAds */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D9E5A6632EC0929400543E50 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */;
-			productName = GoogleInteractiveMediaAds;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
