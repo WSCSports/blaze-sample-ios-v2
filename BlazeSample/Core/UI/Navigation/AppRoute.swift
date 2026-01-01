@@ -23,6 +23,7 @@ enum AppRoute: Hashable {
     case videoRow
     case videoGrid
     case widgetsFeedDemo
+    case methodsDelegates
     
     // Videos Inline Routes
     case simpleFeedExample
