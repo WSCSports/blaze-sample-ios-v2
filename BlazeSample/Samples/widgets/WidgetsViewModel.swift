@@ -22,6 +22,7 @@ enum WidgetScreenType: String {
     case videosRow
     case videosGrid
     case mixed
+    case methodsDelegates
 }
 
 extension WidgetScreenType {
@@ -41,6 +42,8 @@ extension WidgetScreenType {
             return ConfigManager.videosGridLabel
         case .mixed:
             return ""
+        case .methodsDelegates:
+            return ConfigManager.storiesRowLabel
         }
     }
 }
@@ -132,6 +135,8 @@ final class WidgetsViewModel {
             return videosGirdBaseLayout
         case .mixed:
             return videosGirdBaseLayout
+        case .methodsDelegates:
+            return storiesRowBaseLayout
         }
     }
 }

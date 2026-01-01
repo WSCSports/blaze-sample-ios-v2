@@ -24,6 +24,8 @@ struct DefaultAppViewFactory: AppViewFactory {
             wrapped(VideosGridViewController(), title: "Videos Grid")
         case .widgetsFeedDemo:
             wrapped(MixedWidgetsViewController(), title: "Widgets feed")
+        case .methodsDelegates:
+            wrapped(WidgetsMethodsAndDelegatesViewController(), title: "Methods & Delegates")
         case .moments:
             wrapped(MomentsContainerViewController(), title: "Moments Container")
         case .entryPoint:
