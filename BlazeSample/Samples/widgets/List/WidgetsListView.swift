@@ -19,6 +19,7 @@ struct WidgetsListView: View {
         .init(title: "Videos row", subtitle: "A Blaze widget that displays videos in a horizontal row layout", route: .videoRow),
         .init(title: "Videos grid", subtitle: "A Blaze widget that displays videos in a vertical grid layout", route: .videoGrid),
         .init(title: "Widgets feed demo", subtitle: "An example of a feed with multiple widget types", route: .widgetsFeedDemo),
+        .init(title: "Methods & Delegates", subtitle: "Demonstrates the different variations widget methods and custom delegates handlers", route: .methodsDelegates),
     ]
     
     var body: some View {
