@@ -138,6 +138,8 @@ final class PlayerStyleViewController: UIViewController {
         widget.widgetDelegate = viewModel.widgetDelegate
         widget.shouldOrderWidgetByReadStatus = true
         widget.momentsPlayerStyle = viewModel.customMomentsPlayerStyle
+        widget.momentsPlaybackConfiguration = .init(loopBehavior: .loopAndAdvance(numberOfPlays: 2))
+        
         self.customMomentsRowWidgetView = widget
         
         let section = WidgetSectionView(height: 252, title: "Custom Moments Player Style")

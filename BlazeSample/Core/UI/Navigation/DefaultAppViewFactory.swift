@@ -1,4 +1,5 @@
 import SwiftUI
+import BlazeSDK
 
 struct DefaultAppViewFactory: AppViewFactory {
     @ViewBuilder
@@ -36,6 +37,8 @@ struct DefaultAppViewFactory: AppViewFactory {
             wrapped(AdsViewController(), title: "Ads")
         case .swiftUI:
             SwiftUIWidgetsTabView()
+        case .search:
+            searchView()
         case .videosInline:
             VideosInlineListView()
         case .simpleFeedExample:
@@ -45,6 +48,14 @@ struct DefaultAppViewFactory: AppViewFactory {
         case .playerControllerExample:
             VideoPlayerExamples.PlayerControllerExample()
         }
+    }
+
+    @ViewBuilder
+    private func searchView() -> some View {
+        ViewControllerWrapper {
+            SearchViewController(suggestionsDataSource: .labels(.singleLabel(MomentsContainerValues.momentsLabel)))
+        }
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     @ViewBuilder

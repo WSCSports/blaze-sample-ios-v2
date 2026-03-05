@@ -21,12 +21,29 @@ This module demonstrates how to use and customize the BlazeMomentsPlayerContaine
 ### MomentsViewController
 - Demonstrates the use of `BlazeMomentsPlayerContainer` to play moments.
 - Instantiates and starts playback of moments when the view controller is loaded.
+- Passes an `onSearchClicked` closure to `createContainerDelegate`, returning `.byApp` and calling `presentSearchScreen()` to open `SearchViewController` as a fullscreen modal with the current moments label as the suggestions data source.
 
 ### MomentsContainerViewModel
 - Demonstrates how to customize the BlazeMomentsPlayerStyle for the container.
 - Manages state and configuration for the moments container.
 - Configures tab items with custom icons, titles, and data sources.
 - Provides delegate methods for handling tab selection and player events.
+- `createContainerDelegate(onSearchClicked:)` accepts an optional closure invoked when the user taps the search button inside the moments player. Return `.byApp` to handle presentation yourself, or `.bySDK(BlazeSearchScreenParams(...))` to let the SDK open its built-in search screen.
+
+## Search Integration
+
+The moments player exposes an optional `onSearchClicked` callback via `createContainerDelegate(onSearchClicked:)`. When the user taps the search button in the player, the closure is called and the return value controls who handles presentation:
+
+- **`.byApp`** — the app handles opening the search screen. `MomentsViewController` uses this to present `SearchViewController` modally with the same data source as the suggestions grid:
+
+```swift
+viewModel.createContainerDelegate(onSearchClicked: { [weak self] in
+    self?.presentSearchScreen()
+    return .byApp
+})
+```
+
+- **`.bySDK(BlazeSearchScreenParams(...))`** — the SDK opens its own built-in search screen with the given params.
 
 ## BlazeMomentsPlayerContainer Usage
 

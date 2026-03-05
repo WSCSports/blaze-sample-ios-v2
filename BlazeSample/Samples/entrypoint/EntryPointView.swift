@@ -17,6 +17,7 @@ final class EntryPointView: UIView, UITextFieldDelegate {
     var onSingleStoryAction: (() -> Void)?
     var onSingleMomentAction: (() -> Void)?
     var onSingleVideoAction: (() -> Void)?
+    var onSearchAction: (() -> Void)?
 
     private let scrollView = UIScrollView()
     private let contentStack = UIStackView()
@@ -145,6 +146,14 @@ final class EntryPointView: UIView, UITextFieldDelegate {
             )
         ]))
 
+        contentStack.addArrangedSubview(makeDivider())
+
+        contentStack.addArrangedSubview(verticalGroupView([
+            makeSectionLabel("Screens"),
+            makeHorizontalButtonGroup([
+                ("Search", { [weak self] in self?.onSearchAction?() })
+            ])
+        ]))
     }
 
     private func makeSectionLabel(_ text: String) -> UILabel {

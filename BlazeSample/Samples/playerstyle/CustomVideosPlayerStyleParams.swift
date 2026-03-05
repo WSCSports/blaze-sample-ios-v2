@@ -68,10 +68,7 @@ extension BlazeVideosPlayerStyle {
         cta.height = 40
         
         // Configure CTA visibility behavior
-        // Option 1: Always visible (recommended for most use cases)
-        cta.ctaVisibility = .alwaysVisible
-        
-        // Option 2: Visible for 3 seconds after overlay is hidden
+        // cta.ctaVisibility = .alwaysVisible
         // cta.ctaVisibility = .visibleAfterOverlayHidden(for: 3.0)
         
         // Set play icon for CTA button if available
