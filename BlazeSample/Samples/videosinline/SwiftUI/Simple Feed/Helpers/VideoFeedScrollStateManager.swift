@@ -47,6 +47,7 @@ internal class VideoFeedScrollStateManager: ObservableObject {
     private var scrollViewFrame: CGRect = .zero
     private var pendingPositions: [PlayerCellPositionPreferenceKey.CellPosition] = []
     private var updateWorkItem: DispatchWorkItem?
+    private var pipCancellable: AnyCancellable?
     
     // Track initial view appearance to prevent premature updates during geometry settling
     private var isInitialAppearance: Bool = true
@@ -59,6 +60,15 @@ internal class VideoFeedScrollStateManager: ObservableObject {
     
     init(configuration: Configuration = .default) {
         self.configuration = configuration
+
+        pipCancellable = PiPStateObserver.shared.$isActive
+            .removeDuplicates()
+            .filter { !$0 }
+            .sink { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    await self?.scheduleVideoPlaybackUpdate(isScrolling: false)
+                }
+            }
     }
     
     deinit {
@@ -122,6 +132,10 @@ internal class VideoFeedScrollStateManager: ObservableObject {
     private func updateVideoPlayback() async {
         let positions = pendingPositions
         guard !positions.isEmpty else { return }
+
+        // While PiP is active, freeze inline autoplay decisions.
+        // Resetting to placeholder here can tear down the player backing PiP.
+        if PiPStateObserver.shared.isActive { return }
         
         // Get the scroll view's visible frame
         let visibleHeight = scrollViewFrame.height

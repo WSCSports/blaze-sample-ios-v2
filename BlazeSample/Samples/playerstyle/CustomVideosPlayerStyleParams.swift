@@ -67,10 +67,6 @@ extension BlazeVideosPlayerStyle {
         cta.width = 120
         cta.height = 40
         
-        // Configure CTA visibility behavior
-        // cta.ctaVisibility = .alwaysVisible
-        // cta.ctaVisibility = .visibleAfterOverlayHidden(for: 3.0)
-        
         // Set play icon for CTA button if available
         if let playIcon = UIImage(named: "ic_play_cta") {
             cta.icon = playIcon
