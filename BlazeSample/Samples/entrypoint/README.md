@@ -44,6 +44,7 @@ This module serves as the main entry point for Blaze SDK integration in the Blaz
 - Simulate a universal link to test deep linking.
 - Input fields and play buttons for stories, moments, and videos by label expression.
 - Play buttons for single story, moment, or video by ID.
+- A "Screens" section with a button to open the Search screen.
 - All actions interact with the BlazeSDK directly.
 
 ## Usage
@@ -51,4 +52,5 @@ This module serves as the main entry point for Blaze SDK integration in the Blaz
 1. **Launch**: The module is launched via `EntryPointViewController` or `EntryPointView`.
 2. **Universal Links**: Open the app via a universal link or use the UI to simulate one that opens story/moment/video player directly.
 3. **Push Notifications**: Send a push notification with Blaze payload; the handler and view controller will handle it.
-4. **Direct Playback**: Use the UI to play stories, moments, or videos by label or ID. 
+4. **Direct Playback**: Use the UI to play stories, moments, or videos by label or ID.
+5. **Screens**: Tap the "Search" button to navigate to the Search screen example.
