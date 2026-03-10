@@ -24,7 +24,10 @@ final class MomentsViewController: UIViewController {
         return .init(
             dataSourceType: dataSource,
             shouldOrderMomentsByReadStatus: true,
-            containerDelegate: viewModel.createContainerDelegate(),
+            containerDelegate: viewModel.createContainerDelegate(onSearchClicked: { [weak self] in
+                self?.presentSearchScreen()
+                return .byApp
+            }),
             containerIdentifier: MomentsContainerValues.instantMomentsContainerId,
             style: viewModel.momentsPlayerStyle
         )
@@ -46,6 +49,18 @@ final class MomentsViewController: UIViewController {
     
     private func startMomentsInContainer() {
         momentsPlayerContainer.startPlaying(in: self)
+    }
+
+    /// Presents `SearchViewController` as a full-screen modal, using the moments data source
+    /// as the suggestions grid shown before the user types a query.
+    ///
+    /// This method is called when the search button is tapped in the moments player and
+    /// `onSearchClicked` returns `.byApp` — meaning the app handles presentation itself.
+    private func presentSearchScreen() {
+        let suggestionsDataSource = BlazeDataSourceType.labels(.singleLabel(MomentsContainerValues.momentsLabel))
+        let searchVC = SearchViewController(suggestionsDataSource: suggestionsDataSource)
+        searchVC.modalPresentationStyle = .fullScreen
+        present(searchVC, animated: true)
     }
 }
 

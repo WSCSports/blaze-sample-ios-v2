@@ -188,6 +188,20 @@ BlazeSDK can be integrated using multiple approaches:
 - Google Ad Manager integration for custom native and banner ads (GAM)
 - Interactive Media Ads integration (IMA)
 
+### 🔍 Search (`Samples/search/`)
+
+**What it demonstrates**:
+- Custom search screen built with BlazeSDK, matching the layout and behavior of the SDK's built-in search screen
+- Coordinating three widget types (Stories, Moments, Videos) from a single `BlazeDataSourceType.search(searchText:)` data source
+- Unified load-state aggregation via a shared `BlazeWidgetDelegate`
+- Suggestions grid shown while the search field is empty
+
+**Key Features**:
+- `UIState` machine (empty / loading / content / noResults / error)
+- Animated section transitions
+- Both push and modal navigation modes
+- `BlazeMomentsWidgetGridView` suggestions grid with 3-column layout
+
 ### 🎬 Player Style (`Samples/playerstyle/`)
 
 **What it demonstrates**:

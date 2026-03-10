@@ -65,6 +65,10 @@ final class EntryPointViewController: UIViewController {
         entryPointView.onOpenLink = { [weak self] in
             self?.handleUniversalLink(universalLinkStr: EntryPointDefaultValues.UNIVERSAL_LINK_URI)
         }
+
+        entryPointView.onSearchAction = { [weak self] in
+            self?.showSearchScreen()
+        }
     }
     
     ///
@@ -139,6 +143,16 @@ final class EntryPointViewController: UIViewController {
         }
     }
     
+    ///
+    /// Opens the SDK's built-in search screen with a suggestions grid pre-populated
+    /// from the moments label defined in `MomentsContainerValues`.
+    /// For more information, refer to https://dev.wsc-sports.com/docs/ios-methods#/
+    ///
+    private func showSearchScreen() {
+        let suggestionsDataSource = BlazeDataSourceType.labels(.singleLabel(MomentsContainerValues.momentsLabel))
+        Blaze.shared.showSearchScreen(searchParams: .init(suggestionsDataSource: suggestionsDataSource))
+    }
+
     ///
     /// Handles a push notification delivered via `NotificationCenter`.
     ///

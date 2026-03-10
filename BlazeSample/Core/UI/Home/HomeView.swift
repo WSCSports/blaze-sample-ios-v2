@@ -20,6 +20,7 @@ struct HomeView: View {
         .init(icon: "ads", title: "Ads", subtitle: "SDK integration of custom native and IMA ads", route: .ads),
         .init(icon: "swiftUI", title: "SwiftUI", subtitle: "SwiftUI widgets implementation", route: .swiftUI),
         .init(icon: "playerStyle", title: "Videos Inline", subtitle: "Auto-playing video feed with inline players", route: .videosInline),
+        .init(icon: "search", title: "Search", subtitle: "Custom search screen example", route: .search),
     ]
     
     var body: some View {

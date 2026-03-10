@@ -71,6 +71,16 @@ This module demonstrates how to use and customize Blaze player styles for Storie
 
 **Note**: Videos player style has limitations compared to Stories and Moments players. It does not support background color customization, text overlays, chip indicators, first time slide onboarding, or gradient configurations.
 
+## Playback Configuration
+
+`momentsPlaybackConfiguration` controls loop behaviour independently of player style. The demo sets `loopAndAdvance(numberOfPlays: 2)`, which plays each moment twice before automatically advancing to the next one:
+
+```swift
+widget.momentsPlaybackConfiguration = .init(loopBehavior: .loopAndAdvance(numberOfPlays: 2))
+```
+
+This property is set directly on the widget and is separate from `BlazePlayerStyle`.
+
 ## Asset and Configuration Dependencies
 
 The module utilizes various custom icons from the app's Assets.xcassets including universal icons (ic_rounded_close, ic_play_cta, ic_share), video-specific icons (ic_like_selected/unselected, ic_sound_on/off, ic_play), and navigation icons (ic_back_button, chevron_left). System SF Symbols are used for pause and arrow navigation with custom sizing configuration.

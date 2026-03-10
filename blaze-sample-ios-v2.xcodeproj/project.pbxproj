@@ -29,6 +29,7 @@
 				Samples/globalsettings/README.md,
 				Samples/momentscontainer/README.md,
 				Samples/playerstyle/README.md,
+				Samples/search/README.md,
 				Samples/swiftUI/README.md,
 				Samples/widgets/README.md,
 			);

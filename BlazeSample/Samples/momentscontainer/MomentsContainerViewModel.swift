@@ -130,7 +130,14 @@ final class MomentsContainerViewModel {
 }
 
 extension MomentsContainerViewModel {
-    func createContainerDelegate() -> BlazePlayerContainerDelegate {
+    /// Creates a container delegate with optional search handling.
+    ///
+    /// Pass an `onSearchClicked` closure to intercept the search button tap from the moments
+    /// player. Return `.byApp` and present your own search screen, or return
+    /// `.bySDK(BlazeSearchScreenParams(...))` to let the SDK handle it.
+    func createContainerDelegate(
+        onSearchClicked: (() -> BlazeSearchHandleType?)? = nil
+    ) -> BlazePlayerContainerDelegate {
         return BlazePlayerContainerDelegate(
             onDataLoadStarted: { params in
                 Logger.shared.log("onDataLoadStarted", object: params)
@@ -147,7 +154,8 @@ extension MomentsContainerViewModel {
             },
             onPlayerEventTriggered: { [weak self] params in
                 self?.handlePlayerEvent(params.event, sourceId: params.sourceId)
-            }
+            },
+            onSearchClicked: onSearchClicked
         )
     }
 }
