@@ -60,6 +60,7 @@ extension VideoPlayerExamples {
     internal struct PlayerControllerExample: View {
         @StateObject private var playerController = BlazeSwiftUIVideoInlinePlayerController()
         @State private var embeddedState: BlazeSwiftUIVideosInlinePlayerView.EmbeddedState = .placeholder
+        @ObservedObject private var pipObserver = PiPStateObserver.shared
         
         internal init() {}
         
@@ -104,6 +105,7 @@ extension VideoPlayerExamples {
                         }
                         
                         Button(action: {
+                            guard !pipObserver.isActive else { return }
                             embeddedState = .player(autoPlayOnStart: false)
                         }) {
                             Text("Embed")
@@ -113,8 +115,10 @@ extension VideoPlayerExamples {
                                 .foregroundColor(.white)
                                 .cornerRadius(6)
                         }
+                        .opacity(pipObserver.isActive ? 0.4 : 1.0)
                         
                         Button(action: {
+                            guard !pipObserver.isActive else { return }
                             embeddedState = .player(autoPlayOnStart: true)
                         }) {
                             Text("Auto-Play")
@@ -124,6 +128,7 @@ extension VideoPlayerExamples {
                                 .foregroundColor(.white)
                                 .cornerRadius(6)
                         }
+                        .opacity(pipObserver.isActive ? 0.4 : 1.0)
                     }
                     
                     // Player Control

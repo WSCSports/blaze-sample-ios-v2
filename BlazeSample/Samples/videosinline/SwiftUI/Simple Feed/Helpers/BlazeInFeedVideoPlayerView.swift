@@ -151,7 +151,8 @@ internal struct BlazeInFeedVideoPlayerView: View {
     
     @ViewBuilder
     private func inlinePlayerView() -> some View {
-        let newState: BlazeSwiftUIVideosInlinePlayerView.EmbeddedState = scrollManager.currentlyPlayingId == containerIdentifier ? .player(autoPlayOnStart: true) : .placeholder
+        let isPlaying = scrollManager.currentlyPlayingId == containerIdentifier && !PiPStateObserver.shared.isActive
+        let newState: BlazeSwiftUIVideosInlinePlayerView.EmbeddedState = isPlaying ? .player(autoPlayOnStart: true) : .placeholder
         BlazeSwiftUIVideosInlinePlayerView(
             configuration: .init(
                 playerMode: playerMode,

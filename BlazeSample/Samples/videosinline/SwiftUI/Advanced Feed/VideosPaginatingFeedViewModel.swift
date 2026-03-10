@@ -56,6 +56,7 @@ internal class VideosPaginatingFeedViewModel: ObservableObject {
     private var updateWorkItem: DispatchWorkItem?
     private var pendingPositions: [PlayerCellPositionPreferenceKey.CellPosition] = []
     private var scrollViewFrame: CGRect = .zero
+    private var pipCancellable: AnyCancellable?
     
     // MARK: - Configuration
     /// Visibility threshold for video playback (0.0 to 1.0)
@@ -67,6 +68,15 @@ internal class VideosPaginatingFeedViewModel: ObservableObject {
     internal init(visibilityThreshold: CGFloat = 0.7) {
         self.visibilityThreshold = visibilityThreshold
         setupFeedItems()
+
+        pipCancellable = PiPStateObserver.shared.$isActive
+            .removeDuplicates()
+            .filter { !$0 }
+            .sink { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    await self?.scheduleVideoPlaybackUpdate(isScrolling: false)
+                }
+            }
     }
     
     deinit {
@@ -113,11 +123,13 @@ internal class VideosPaginatingFeedViewModel: ObservableObject {
     // MARK: - Playback Management (reproduced from original)
     
     internal func shouldEmbedPlayer(for itemId: String) -> Bool {
-        let shouldEmbed = currentlyPlayingItemId == itemId
+        let shouldEmbed = currentlyPlayingItemId == itemId && !PiPStateObserver.shared.isActive
         return shouldEmbed
     }
     
     internal func updatePlaybackState(for itemId: String?) async {
+        guard !PiPStateObserver.shared.isActive else { return }
+
         print("📺 [VideosFeedViewModel] ═══════════════════════════════")
         print("📺 [VideosFeedViewModel] updatePlaybackState called")
         print("📺 [VideosFeedViewModel] Previous ID: \(currentlyPlayingItemId ?? "nil")")
@@ -212,6 +224,10 @@ internal class VideosPaginatingFeedViewModel: ObservableObject {
             print("📺 [VideosFeedViewModel] ⚠️ No positions - returning early")
             return
         }
+
+        // While PiP is active, freeze inline autoplay decisions.
+        // Resetting to placeholder here can tear down the player backing PiP.
+        if PiPStateObserver.shared.isActive { return }
         
         print("📺 [VideosFeedViewModel] 📊 Processing \(positions.count) positions")
         
