@@ -23,6 +23,7 @@ class MixedWidgetsViewController: UIViewController {
     private var storiesGridWidgetView: BlazeStoriesWidgetGridView?
     private var momentsRowWidgetView: BlazeMomentsWidgetRowView?
     private var videosRowWidgetView: BlazeVideosWidgetRowView?
+    private var momentsTabsContainer: BlazeMomentsPlayerContainerTabs?
 
     override func loadView() {
         self.view = contentView
@@ -42,7 +43,7 @@ class MixedWidgetsViewController: UIViewController {
     
     func initWidgets() {
         initStoriesRowWidget()
-        initMomentsRowWidget()
+        initMomentsTabsRowWidget()
         initVideosRowWidget()
         initStoriesGridWidget()
     }
@@ -88,21 +89,35 @@ class MixedWidgetsViewController: UIViewController {
         contentView.stackView.addArrangedSubview(section)
     }
 
-    func initMomentsRowWidget() {
-        let widgetLayout = viewModel.momentsRowBaseLayout
-        
-        let dataSource = BlazeDataSourceType.labels(
-            .singleLabel(ConfigManager.momentsRowLabel)
+    // For more information see https://dev.wsc-sports.com/docs/ios-moments-widget-tabs
+    func initMomentsTabsRowWidget() {
+        let tabs: [BlazeMomentsContainerTabItem] = [
+            BlazeMomentsContainerTabItem(
+                containerId: "moments-container-trending",
+                title: "Trending",
+                dataSource: .labels(.singleLabel(ConfigManager.momentContainerLabel1))
+            ),
+            BlazeMomentsContainerTabItem(
+                containerId: "moments-container-for-you",
+                title: "For You",
+                dataSource: .labels(.singleLabel(ConfigManager.momentContainerLabel2))
+            )
+        ]
+
+        let tabsContainer = BlazeMomentsPlayerContainerTabs(
+            tabs: tabs,
+            tabsStyle: .base(),
+            containerTabsDelegate: nil,
+            containerSourceId: "mixed-widgets-moments-tabs-id"
         )
-        
-        let widget = BlazeMomentsWidgetRowView(layout: widgetLayout)
-        widget.dataSourceType = dataSource
-        widget.widgetIdentifier = "mixed-widgets-moments-row-id"
+        momentsTabsContainer = tabsContainer
+
+        let widget = BlazeMomentsWidgetRowView(layout: viewModel.momentsRowBaseLayout, tabsContainer: tabsContainer)
+        widget.widgetIdentifier = "mixed-widgets-moments-tabs-row-id"
         widget.widgetDelegate = viewModel.widgetDelegate
-        widget.shouldOrderWidgetByReadStatus = true
         self.momentsRowWidgetView = widget
-        
-        let section = WidgetSectionView.init(height: 300, title: "Moment row widget")
+
+        let section = WidgetSectionView(height: 300, title: "Moments Tabs Row widget")
         widget.embedInView(section.containerView)
         widget.reloadData(progressType: .skeleton)
         contentView.stackView.addArrangedSubview(section)
