@@ -13,6 +13,7 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
     @Published var storiesRowViewModel: BlazeSwiftUIStoriesWidgetViewModel!
     @Published var storiesGridViewModel: BlazeSwiftUIStoriesWidgetViewModel!
     @Published var momentsRowViewModel: BlazeSwiftUIMomentsWidgetViewModel!
+    @Published var momentsTabsRowViewModel: BlazeSwiftUIMomentsWidgetViewModel!
     @Published var momentsPlayerContainer: BlazeMomentsPlayerContainer!
     @Published var momentsPlayerContainerTabs: BlazeMomentsPlayerContainerTabs?
 
@@ -63,6 +64,31 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
             ),
             delegate: widgetDelegate,
             adsConfigType: .none // Set No ads for widget
+        )
+
+        // For more information see https://dev.wsc-sports.com/docs/ios-moments-widget-tabs
+        let widgetTabsContainer = BlazeMomentsPlayerContainerTabs(
+            tabs: [
+                BlazeMomentsContainerTabItem(
+                    containerId: "swiftui-widgets-feed-tab-1",
+                    title: "Trending",
+                    dataSource: .labels(.singleLabel(ConfigManager.momentContainerLabel1))
+                ),
+                BlazeMomentsContainerTabItem(
+                    containerId: "swiftui-widgets-feed-tab-2",
+                    title: "For You",
+                    dataSource: .labels(.singleLabel(ConfigManager.momentContainerLabel2))
+                )
+            ],
+            tabsStyle: .base(),
+            containerTabsDelegate: nil,
+            containerSourceId: "swiftui-widgets-feed-moments-tabs-id"
+        )
+        self.momentsTabsRowViewModel = BlazeSwiftUIMomentsWidgetViewModel(
+            tabsWidgetConfiguration: BlazeSwiftUIMomentsTabsWidgetConfiguration(
+                layout: .Presets.MomentsWidget.Row.verticalAnimatedThumbnailsRectangles,
+                tabsContainer: widgetTabsContainer
+            )
         )
     }
     
@@ -124,6 +150,7 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
     func reloadData(progressType: BlazeProgressType) {
         storiesRowViewModel.reloadData(progressType: progressType)
         momentsRowViewModel.reloadData(progressType: progressType)
+        momentsTabsRowViewModel.reloadData(progressType: progressType)
         storiesGridViewModel.reloadData(progressType: progressType)
     }
 }
