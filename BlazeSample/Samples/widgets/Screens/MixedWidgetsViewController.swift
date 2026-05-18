@@ -145,5 +145,10 @@ class MixedWidgetsViewController: UIViewController {
     @objc private func pullToRefreshTriggered() {
         [momentsRowWidgetView, storiesGridWidgetView, storiesRowWidgetView, videosRowWidgetView]
             .forEach { $0?.reloadData(progressType: .skeleton) }
+
+        // Example: use the tabs container when the player is open to navigate back to the first tab on refresh.
+        // momentsTabsContainer is non-nil only after initMomentsTabsRowWidget() is called.
+        Logger.shared.log("momentsTabsContainer active: \(momentsTabsContainer != nil)")
+        momentsTabsContainer?.selectTab(at: 0, animated: true)
     }
 }

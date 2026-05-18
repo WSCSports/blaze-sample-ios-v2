@@ -18,6 +18,7 @@ struct SwiftUIWidgetsFeedView: View {
                 headerSection
                 storiesRowSection
                 momentsRowSection
+                momentsTabsRowSection
                 storiesGridSection
             }
             .padding(.top)
@@ -55,7 +56,14 @@ struct SwiftUIWidgetsFeedView: View {
                 .frame(height: 232)
         }
     }
-    
+
+    private var momentsTabsRowSection: some View {
+        section(title: "SwiftUI moments tabs row") {
+            BlazeSwiftUIMomentsRowWidgetView(viewModel: viewModel.momentsTabsRowViewModel)
+                .frame(height: 232)
+        }
+    }
+
     private var storiesGridSection: some View {
         section(title: "SwiftUI stories grid") {
             BlazeSwiftUIStoriesGridWidgetView(viewModel: viewModel.storiesGridViewModel)
