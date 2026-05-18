@@ -85,10 +85,10 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
             containerSourceId: "swiftui-widgets-feed-moments-tabs-id"
         )
         self.momentsTabsRowViewModel = BlazeSwiftUIMomentsWidgetViewModel(
-            widgetConfiguration: .init(
-                layout: .Presets.MomentsWidget.Row.verticalAnimatedThumbnailsRectangles
-            ),
-            tabsContainer: widgetTabsContainer
+            tabsWidgetConfiguration: BlazeSwiftUIMomentsTabsWidgetConfiguration(
+                layout: .Presets.MomentsWidget.Row.verticalAnimatedThumbnailsRectangles,
+                tabsContainer: widgetTabsContainer
+            )
         )
     }
     
