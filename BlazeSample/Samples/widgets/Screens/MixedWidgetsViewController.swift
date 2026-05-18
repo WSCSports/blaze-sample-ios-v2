@@ -89,7 +89,6 @@ class MixedWidgetsViewController: UIViewController {
         contentView.stackView.addArrangedSubview(section)
     }
 
-    // For more information see https://dev.wsc-sports.com/docs/ios-moments-widget-tabs
     func initMomentsTabsRowWidget() {
         let tabs: [BlazeMomentsContainerTabItem] = [
             BlazeMomentsContainerTabItem(
