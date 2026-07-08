@@ -55,7 +55,7 @@ extension BlazeMomentsPlayerStyle {
         self.cta.layoutPositioning = .ctaNextToBottomButtonsBox
         self.cta.horizontalAlignment = .leading
 
-        self.playerDisplayMode = .fixedRatio_9_16
+        self.playerDisplayMode = .resizeAspectFit
 
         // Bottom Components Alignment
         self.bottomComponentsAlignment = .relativeToContainer

@@ -175,27 +175,25 @@ class WidgetsMethodsAndDelegatesViewController: UIViewController {
         widget.widgetDelegate = viewModel.widgetDelegate
         widget.shouldOrderWidgetByReadStatus = true
         
-        // Set up click handler - always intercepts and manually triggers playback
+        // Set up click handler - decide whether the SDK plays immediately or the app handles the click.
         widget.onWidgetItemClickHandler = { [weak self, weak widget] params in
-            // Example of usage - check if the user is subscribed (we are doign mock delay)
-            var subscribed = false
-
-            // User is subscribed: return `sdkShouldHandle`
-            if subscribed {
+            // Replace `isUserSubscribed()` with your real entitlement check.
+            if self?.isUserSubscribed() == true {
+                // User is subscribed: let the SDK open the player.
                 return .sdkShouldHandle
-            } else {
-                // User is not subscribed: do your own subscription flow, on completion triger the `play` method.
-                //
-                // `params.contentThumbnailUrl` exposes the clicked item's thumbnail URL directly,
-                // so the app can render it (e.g. on a paywall / preview screen) without maintaining
-                // its own contentId -> thumbnail mapping.
-                self?.presentPaywall(thumbnailUrl: params.contentThumbnailUrl) {
-                    // Play from the clicked item's content ID once the paywall flow completes.
-                    widget?.play(from: .contentId(params.contentId))
-                }
-                return .handledByApp
             }
 
+            // User is not subscribed: run your own flow (paywall / preview) and trigger
+            // playback on completion.
+            //
+            // `params.contentThumbnailUrl` exposes the clicked item's thumbnail URL directly,
+            // so the app can render it (e.g. on a paywall / preview screen) without maintaining
+            // its own contentId -> thumbnail mapping.
+            self?.presentPaywall(thumbnailUrl: params.contentThumbnailUrl) {
+                // Play from the clicked item's content ID once the paywall flow completes.
+                widget?.play(from: .contentId(params.contentId))
+            }
+            return .handledByApp
         }
         
         widget.embedInView(widgetContainerView)
@@ -203,6 +201,11 @@ class WidgetsMethodsAndDelegatesViewController: UIViewController {
         self.storiesWidget = widget
     }
     
+    /// Mock entitlement check. Replace with your real subscription / entitlement logic.
+    private func isUserSubscribed() -> Bool {
+        false
+    }
+
     /// Mocks an app-owned flow (e.g. a paywall / preview screen) shown before playback when the
     /// app handles the click itself (`handledByApp`).
     ///

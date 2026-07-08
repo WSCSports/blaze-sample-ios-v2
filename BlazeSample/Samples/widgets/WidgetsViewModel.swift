@@ -89,7 +89,7 @@ final class WidgetsViewModel {
     }
 
     var momentsGirdBaseLayout: BlazeWidgetLayout {
-        var layout = BlazeWidgetLayout.Presets.MomentsWidget.Grid.twoColumnsVerticalRectangles
+        let layout = BlazeWidgetLayout.Presets.MomentsWidget.Grid.twoColumnsVerticalRectangles
         // Further customization for the grid layout if needed
         return layout
     }

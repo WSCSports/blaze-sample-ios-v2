@@ -206,7 +206,7 @@ class VideosGridViewController: BaseWidgetEditOptionsViewController {
     // We get the mapping key and value from the BE, inside the item object entities field.
     // For more information see https://dev.wsc-sports.com/docs/blazewidgetitemcustommapping#/
     private func setOverrideStylesByGameId(widgetLayout: BlazeWidgetLayout) {
-        let mappingKey = BlazeWidgetItemCustomMapping.KeysPresets.gameId
+        let mappingKey = BlazeExtraInfoKeyPreset.gameId
         let mappingValue = "2445381"
         let mapping = BlazeWidgetItemCustomMapping(keyPreset: mappingKey, value: mappingValue)
         let layout = widgetLayout
