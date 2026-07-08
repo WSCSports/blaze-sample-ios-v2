@@ -28,8 +28,30 @@ extension BlazeVideosPlayerStyle {
         
         // Apply custom buttons style
         style.applyCustomVideosButtonsStyle()
-                
+
+        // Apply custom closed captions style (font + on-screen position)
+        style.applyCustomVideosCaptionsStyle()
+
         return style
+    }
+
+    /// Demonstrates customizing closed captions for the videos player.
+    ///
+    /// `captions.font` embeds the given `UIFont` into the captions WebView (pass `nil` to keep
+    /// the HTML parser's default font). `captions.positioning` controls where the captions box
+    /// sits inside the player; each axis is configured independently:
+    /// - `xPosition`: `.start` / `.center` / `.custom(offsetPercent:)`
+    /// - `yPosition`: `.top` / `.center` / `.bottom` / `.custom(offsetPercent:)`
+    ///
+    /// This example uses `.custom(offsetPercent:)` to place captions ~80% down the player,
+    /// leaving room for the seek bar below.
+    mutating func applyCustomVideosCaptionsStyle() {
+        // Use a system font so the sample needs no bundled font file.
+        captions.font = UIFont(name: "Menlo-Regular", size: 15) ?? .systemFont(ofSize: 15)
+
+        // Offset from the top edge, as a percentage of the player height (coerced into 0...100).
+        captions.positioning.yPosition = .custom(offsetPercent: 80)
+        captions.positioning.xPosition = .center
     }
 }
 
