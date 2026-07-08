@@ -49,14 +49,6 @@ class StoriesRowViewController: BaseWidgetEditOptionsViewController {
         widget.widgetIdentifier = viewModel.currentWidgetType.rawValue // Or any unique identifier for the widget
         widget.widgetDelegate = viewModel.widgetDelegate
         widget.shouldOrderWidgetByReadStatus = true
-
-        // Opt-in pre-roll ads for the Stories player (disabled by default).
-        // When enabled, if the first unread page is a configured ad page, that ad is played
-        // there as a pre-roll before the story content. Use `.base()` to keep pre-rolls off.
-        var playbackConfiguration = BlazeStoriesPlaybackConfiguration.base()
-        playbackConfiguration.ads.enablePreroll = true
-        widget.storiesPlaybackConfiguration = playbackConfiguration
-
         widget.embedInView(contentView)
         widget.reloadData(progressType: .skeleton)
         self.widgetView = widget

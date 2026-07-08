@@ -62,6 +62,14 @@ class AdsViewController: UIViewController {
         widget.widgetIdentifier = "ads-stories-row-id"
         widget.widgetDelegate = viewModel.widgetDelegate
         widget.shouldOrderWidgetByReadStatus = true
+
+        // Opt-in pre-roll ads for the Stories player (disabled by default).
+        // When enabled, if the first unread page is a configured ad page, that ad is played
+        // there as a pre-roll before the story content. Use `.base()` to keep pre-rolls off.
+        var playbackConfiguration = BlazeStoriesPlaybackConfiguration.base()
+        playbackConfiguration.ads.enablePreroll = true
+        widget.storiesPlaybackConfiguration = playbackConfiguration
+
         self.storiesRowWidgetView = widget
 
         let section = WidgetSectionView.init(height: 160, title: "Custom native ads")
