@@ -155,6 +155,11 @@ class WidgetsMethodsAndDelegatesViewController: UIViewController {
     /// - widgetId: The ID of the widget
     /// - contentIndex: The zero-based index of the clicked item
     /// - contentId: The unique content ID of the clicked item
+    /// - extraInfo: Additional key-value metadata associated with the clicked item
+    /// - contentThumbnailUrl: The URL string of the clicked item's main thumbnail (matching the
+    ///   thumbnail rendered by the widget), or `nil` when the item has no thumbnail. Available for
+    ///   stories, moments, and videos widgets. Useful when the app handles the click itself — e.g.
+    ///   showing a paywall or preview screen with the item's thumbnail before playback.
     ///
     /// Return `BlazeWidgetItemClickHandlerState.sdkShouldHandle` to let the SDK handle the click,
     /// or `BlazeWidgetItemClickHandlerState.handledByApp` to handle it yourself.
@@ -171,22 +176,26 @@ class WidgetsMethodsAndDelegatesViewController: UIViewController {
         widget.shouldOrderWidgetByReadStatus = true
         
         // Set up click handler - always intercepts and manually triggers playback
-        widget.onWidgetItemClickHandler = { [weak widget] params in
+        widget.onWidgetItemClickHandler = { [weak self, weak widget] params in
             // Example of usage - check if the user is subscribed (we are doign mock delay)
             var subscribed = false
-            
+
             // User is subscribed: return `sdkShouldHandle`
             if subscribed {
                 return .sdkShouldHandle
             } else {
                 // User is not subscribed: do your own subscription flow, on completion triger the `play` method.
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Mock background work
-                    // Play from the clicked item's content ID
+                //
+                // `params.contentThumbnailUrl` exposes the clicked item's thumbnail URL directly,
+                // so the app can render it (e.g. on a paywall / preview screen) without maintaining
+                // its own contentId -> thumbnail mapping.
+                self?.presentPaywall(thumbnailUrl: params.contentThumbnailUrl) {
+                    // Play from the clicked item's content ID once the paywall flow completes.
                     widget?.play(from: .contentId(params.contentId))
                 }
                 return .handledByApp
             }
-            
+
         }
         
         widget.embedInView(widgetContainerView)
@@ -194,6 +203,21 @@ class WidgetsMethodsAndDelegatesViewController: UIViewController {
         self.storiesWidget = widget
     }
     
+    /// Mocks an app-owned flow (e.g. a paywall / preview screen) shown before playback when the
+    /// app handles the click itself (`handledByApp`).
+    ///
+    /// Demonstrates consuming `BlazeWidgetItemClickParams.contentThumbnailUrl`: a real app would
+    /// load `thumbnailUrl` into an image view on the paywall screen. Here we just log it and mock
+    /// some async work before invoking `completion`.
+    private func presentPaywall(thumbnailUrl: String?, completion: @escaping () -> Void) {
+        Logger.shared.log("Presenting paywall with thumbnail: \(thumbnailUrl ?? "none")")
+
+        // Mock background work (e.g. subscription check / paywall dismissal).
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            completion()
+        }
+    }
+
     private func createButton(title: String, action: Selector) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
