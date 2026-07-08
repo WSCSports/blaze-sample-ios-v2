@@ -71,6 +71,31 @@ This module demonstrates how to use and customize Blaze player styles for Storie
 
 **Note**: Videos player style has limitations compared to Stories and Moments players. It does not support background color customization, text overlays, chip indicators, first time slide onboarding, or gradient configurations.
 
+## Closed Captions Customization
+
+All three player styles expose a `captions` property (`BlazeCaptionsStyle`) for customizing how closed captions are rendered:
+
+- `captions.font` — a `UIFont` embedded into the captions WebView. Pass `nil` to keep the HTML parser's default font (only the default size is applied). The samples use system fonts (`Georgia`, `AvenirNext-Medium`, `Menlo-Regular`) so no font file needs to be bundled.
+- `captions.positioning` — the position of the captions box inside the player, configured independently per axis:
+  - `positioning.xPosition`: `.start` / `.center` / `.custom(offsetPercent:)`
+  - `positioning.yPosition`: `.top` / `.center` / `.bottom` / `.custom(offsetPercent:)`
+
+`custom(offsetPercent:)` takes an integer percentage (coerced into `0...100`) measured from the leading edge (X) or top edge (Y) of the player.
+
+```swift
+// Stories / Moments example — centered captions near the bottom
+style.captions.font = UIFont(name: "Georgia", size: 18)
+style.captions.positioning.yPosition = .bottom
+style.captions.positioning.xPosition = .center
+
+// Videos example — custom vertical offset (~80% down the player)
+style.captions.font = UIFont(name: "Menlo-Regular", size: 15)
+style.captions.positioning.yPosition = .custom(offsetPercent: 80)
+style.captions.positioning.xPosition = .center
+```
+
+See `applyCustomStoryCaptionsStyle()`, `applyCaptionsStyle()` (Moments), and `applyCustomVideosCaptionsStyle()` in the custom style files. Make sure the captions toggle button is visible (`buttons.captions.isVisible = true`) so the effect can be seen.
+
 ## Playback Configuration
 
 `momentsPlaybackConfiguration` controls loop behaviour independently of player style. The demo sets `loopAndAdvance(numberOfPlays: 2)`, which plays each moment twice before automatically advancing to the next one:

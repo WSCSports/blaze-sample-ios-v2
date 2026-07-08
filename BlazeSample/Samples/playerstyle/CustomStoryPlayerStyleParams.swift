@@ -52,8 +52,30 @@ extension BlazeStoryPlayerStyle {
         
         // Apply custom first time slide style
         style.firstTimeSlide.applyCustomStoryFirstTimeSlideStyle()
-        
+
+        // Apply custom closed captions style (font + on-screen position)
+        style.applyCustomStoryCaptionsStyle()
+
         return style
+    }
+
+    /// Demonstrates customizing closed captions for the story player.
+    ///
+    /// `captions.font` embeds the given `UIFont` into the captions WebView (pass `nil` to keep
+    /// the HTML parser's default font). `captions.positioning` controls where the captions box
+    /// sits inside the player, configured independently on each axis:
+    /// - `xPosition`: `.start` / `.center` / `.custom(offsetPercent:)`
+    /// - `yPosition`: `.top` / `.center` / `.bottom` / `.custom(offsetPercent:)`
+    mutating func applyCustomStoryCaptionsStyle() {
+        // Use a system font so the sample needs no bundled font file.
+        captions.font = UIFont(name: "Georgia", size: 18) ?? .systemFont(ofSize: 18)
+
+        // Render captions centered near the bottom of the player.
+        captions.positioning.yPosition = .bottom
+        captions.positioning.xPosition = .center
+
+        // Make sure the captions toggle is visible so the effect can be seen.
+        buttons.captions.isVisible = true
     }
 }
 

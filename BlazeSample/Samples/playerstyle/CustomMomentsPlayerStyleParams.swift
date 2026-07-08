@@ -55,7 +55,7 @@ extension BlazeMomentsPlayerStyle {
         self.cta.layoutPositioning = .ctaNextToBottomButtonsBox
         self.cta.horizontalAlignment = .leading
 
-        self.playerDisplayMode = .fixedRatio_9_16
+        self.playerDisplayMode = .resizeAspectFit
 
         // Bottom Components Alignment
         self.bottomComponentsAlignment = .relativeToContainer
@@ -79,10 +79,29 @@ extension BlazeMomentsPlayerStyle {
         
         // Follow entity style appearance
         applyFollowEntityStyle()
-        
+
+        // Closed captions appearance (font + on-screen position)
+        applyCaptionsStyle()
+
         return self
     }
-    
+
+    /// Demonstrates customizing closed captions for the moments player.
+    ///
+    /// `captions.font` embeds the given `UIFont` into the captions WebView (pass `nil` to keep
+    /// the HTML parser's default font). `captions.positioning` controls where the captions box
+    /// sits inside the player; each axis is configured independently:
+    /// - `xPosition`: `.start` / `.center` / `.custom(offsetPercent:)`
+    /// - `yPosition`: `.top` / `.center` / `.bottom` / `.custom(offsetPercent:)`
+    mutating func applyCaptionsStyle() {
+        // Use a system font so the sample needs no bundled font file.
+        captions.font = UIFont(name: "AvenirNext-Medium", size: 16) ?? .systemFont(ofSize: 16)
+
+        // Render captions centered near the bottom of the player.
+        captions.positioning.yPosition = .bottom
+        captions.positioning.xPosition = .center
+    }
+
     mutating func applyButtonsStyle() {
         // Exit button appearance
         buttons.exit.isVisible = true
