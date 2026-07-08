@@ -49,6 +49,14 @@ class StoriesRowViewController: BaseWidgetEditOptionsViewController {
         widget.widgetIdentifier = viewModel.currentWidgetType.rawValue // Or any unique identifier for the widget
         widget.widgetDelegate = viewModel.widgetDelegate
         widget.shouldOrderWidgetByReadStatus = true
+
+        // Opt-in pre-roll ads for the Stories player (disabled by default).
+        // When enabled, if the first unread page is a configured ad page, that ad is played
+        // there as a pre-roll before the story content. Use `.base()` to keep pre-rolls off.
+        var playbackConfiguration = BlazeStoriesPlaybackConfiguration.base()
+        playbackConfiguration.ads.enablePreroll = true
+        widget.storiesPlaybackConfiguration = playbackConfiguration
+
         widget.embedInView(contentView)
         widget.reloadData(progressType: .skeleton)
         self.widgetView = widget
@@ -246,7 +254,7 @@ class StoriesRowViewController: BaseWidgetEditOptionsViewController {
     // We get the mapping key and value from the BE, inside the item object entities field.
     // For more information see https://dev.wsc-sports.com/docs/blazewidgetitemcustommapping#/
     private func setOverrideStylesByTeamId(widgetLayout: BlazeWidgetLayout) {
-        let mappingKey = BlazeWidgetItemCustomMapping.KeysPresets.teamId
+        let mappingKey = BlazeExtraInfoKeyPreset.teamId
         let mappingValue = "178"
         let mapping = BlazeWidgetItemCustomMapping(keyPreset: mappingKey, value: mappingValue)
         let layout = widgetLayout
