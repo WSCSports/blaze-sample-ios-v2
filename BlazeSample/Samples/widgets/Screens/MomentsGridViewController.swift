@@ -214,7 +214,7 @@ class MomentsGridViewController: BaseWidgetEditOptionsViewController {
     // We get the mapping key and value from the BE, inside the item object entities field.
     // For more information see https://dev.wsc-sports.com/docs/blazewidgetitemcustommapping#/
     private func setOverrideStylesBySeasonId(widgetLayout: BlazeWidgetLayout) {
-        let mappingKey = BlazeWidgetItemCustomMapping.KeysPresets.seasonId
+        let mappingKey = BlazeExtraInfoKeyPreset.seasonId
         let mappingValue = "2025"
         let mapping = BlazeWidgetItemCustomMapping(keyPreset: mappingKey, value: mappingValue)
         let layout = widgetLayout
