@@ -41,7 +41,9 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
         self.storiesRowViewModel = BlazeSwiftUIStoriesWidgetViewModel(
             widgetConfiguration: BlazeSwiftUIWidgetConfiguration(
                 layout: .Presets.StoriesWidget.Row.circles,
-                dataSourceType: storiesRowDataSourceType
+                dataSourceType: storiesRowDataSourceType,
+                // If a widget with this identifier exists in the CMS, its layout (UI) and data source are derived from there.
+                widgetRemoteIdentifier: "<ID_FROM_CMS>"
             ),
             delegate: widgetDelegate,
             adsConfigType: .none // Set No ads for widget
@@ -50,7 +52,9 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
         self.momentsRowViewModel = BlazeSwiftUIMomentsWidgetViewModel(
             widgetConfiguration: .init(
                 layout: .Presets.MomentsWidget.Row.verticalAnimatedThumbnailsRectangles,
-                dataSourceType: momentsRowDataSourceType
+                dataSourceType: momentsRowDataSourceType,
+                // If a widget with this identifier exists in the CMS, its layout (UI) and data source are derived from there.
+                widgetRemoteIdentifier: "<ID_FROM_CMS>"
             ),
             delegate: widgetDelegate,
             adsConfigType: .none // Set No ads for widget
@@ -60,7 +64,9 @@ final class SwiftUIWidgetsViewModel: ObservableObject {
             widgetConfiguration: .init(
                 layout: .Presets.StoriesWidget.Grid.twoColumnsVerticalRectangles,
                 dataSourceType: storiesGridDataSourceType,
-                isEmbededInScrollView: true
+                isEmbededInScrollView: true,
+                // If a widget with this identifier exists in the CMS, its layout (UI) and data source are derived from there.
+                widgetRemoteIdentifier: "<ID_FROM_CMS>"
             ),
             delegate: widgetDelegate,
             adsConfigType: .none // Set No ads for widget
