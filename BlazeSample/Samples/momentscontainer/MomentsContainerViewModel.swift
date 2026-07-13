@@ -84,11 +84,17 @@ final class MomentsContainerViewModel {
         return style
     }()
 
+    lazy var tabsStyle: BlazePlayerTabsStyle = {
+        var style = BlazePlayerTabsStyle.base()
+        style.isTabTitleVisibleWhenSingleTab = false // In case of a single tab - tab title is not visible
+        return style
+    }()
+
     lazy var momentsTabsContainer: BlazeMomentsPlayerContainerTabs = {
         return BlazeMomentsPlayerContainerTabs(
             tabs: tabs,
             playerStyle: momentsPlayerStyle,
-            tabsStyle: BlazePlayerTabsStyle.base(),
+            tabsStyle: tabsStyle,
             containerTabsDelegate: createMomentsContainerDelegate(),
             containerSourceId: MomentsContainerValues.momentsContainerId
         )
