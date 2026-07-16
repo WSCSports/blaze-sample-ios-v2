@@ -41,6 +41,7 @@ final class BlazeSDKInteractor {
         switch result {
         case .success:
             Logger.shared.log("SKD initialized successfully!")
+            SampleFollowEntitiesManager.shared.start()
         case .failure(let error):
             Logger.shared.log("Error message in blaze sdk: \(error.errorMessage)", level: .error)
         }

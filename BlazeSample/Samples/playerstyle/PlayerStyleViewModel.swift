@@ -25,14 +25,6 @@ final class PlayerStyleViewModel: ObservableObject {
         static let momentsLabel = ConfigManager.momentsRowLabel
     }
     
-    // MARK: - Follow Entities Manager
-    
-    var followEntitiesManager: BlazeFollowEntitiesManager {
-        let manager = Blaze.shared.followEntitiesManager
-        manager.delegate = self
-        return manager
-    }
-    
     // MARK: - Widget Delegate
     lazy var widgetDelegate: BlazeWidgetDelegate = WidgetsDelegate.create(
         identifier: "PlayerStyle",
@@ -97,10 +89,4 @@ final class PlayerStyleViewModel: ObservableObject {
     
     // MARK: - Refresh Control
     var onRefreshCompleted: (() -> Void)?
-}
-
-extension PlayerStyleViewModel: BlazeFollowEntitiesDelegate {
-    func onFollowEntityClicked(_ params: BlazeSDK.BlazeFollowEntityClickedParams) {
-        Logger.shared.log("BlazeFollowEntitiesDelegate: Place to sync entities with the backend/local storage.\n onFollowEntityClicked called: \(params)")
-    }
 }
