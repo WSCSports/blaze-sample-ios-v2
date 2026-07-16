@@ -6,11 +6,8 @@
 import BlazeSDK
 import SwiftUI
 
-///
 /// Owns the tabs-backed Moments widget's state for `FollowEntitiesSwiftUIView`, mirroring
-/// `FollowEntitiesViewController` (the UIKit variant) — see that file for the full behavior
-/// rationale behind the follow-refresh choreography below.
-///
+/// `FollowEntitiesViewController` (the UIKit variant).
 final class FollowEntitiesSwiftUIViewModel: ObservableObject {
 
     private enum FollowTabs {
@@ -31,14 +28,9 @@ final class FollowEntitiesSwiftUIViewModel: ObservableObject {
     private var isViewVisible = false
     private var hasLoadedInitialData = false
 
-    /// Note: `onPlayerDidAppear`/`onPlayerDidDismiss` fire on every tab switch inside the
-    /// fullscreen player (the previous tab is "dismissed", the next one "appears"), not only
-    /// when the player itself opens or closes — don't use them to track the player's presence.
-    ///
-    /// `isYourPicksTabActive` tracks whether "Your Picks" is the tab the user is currently
-    /// watching — the active tab must never be reloaded mid-playback. A follow change made
-    /// while watching "Your Picks" is instead applied the moment the user switches to another
-    /// tab, so returning to it within the same player session already shows fresh content.
+    /// `onPlayerDidAppear`/`onPlayerDidDismiss` fire on every tab switch, not just when the
+    /// player opens/closes — track the active tab via `isYourPicksTabActive` instead, so it's
+    /// never reloaded mid-playback.
     private lazy var momentsContainerTabsDelegate = BlazePlayerContainerTabsDelegate(
         onPlayerDidAppear: { [weak self] params in
             self?.isYourPicksTabActive = params.sourceId?.hasSuffix(FollowTabs.yourPicksId) == true
@@ -57,15 +49,11 @@ final class FollowEntitiesSwiftUIViewModel: ObservableObject {
         initWidget()
     }
 
-    /// SwiftUI's equivalent of `viewDidAppear` — the screen isn't covered by the fullscreen
-    /// tabs player anymore, so any deferred rebuild can safely run now.
     func viewDidAppear() {
         isViewVisible = true
 
-        // Unlike the UIKit variant (which loads the widget right after embedding it in
-        // `viewDidLoad`), `BlazeSwiftUIMomentsRowWidgetView` only wires up its reload
-        // subscription once SwiftUI actually builds it — so the first load has to be
-        // triggered from here, the first point at which that's guaranteed to have happened.
+        // `BlazeSwiftUIMomentsRowWidgetView` only wires up its reload subscription once
+        // SwiftUI builds it, so the first load is triggered here rather than in init().
         guard hasLoadedInitialData else {
             hasLoadedInitialData = true
             momentsTabsViewModel.reloadData(progressType: .skeleton)
@@ -78,15 +66,10 @@ final class FollowEntitiesSwiftUIViewModel: ObservableObject {
         }
     }
 
-    /// SwiftUI's equivalent of `viewWillDisappear` — the fullscreen tabs player is about to
-    /// cover this screen.
     func viewWillDisappear() {
         isViewVisible = false
     }
 
-    /// Builds a tabs-backed moments widget (Trending / For You / Your Picks) that demonstrates
-    /// personalized content via BlazeSDK Follow Entities.
-    ///
     /// The widget uses the **first tab's** data source for thumbnails — keep a label with
     /// content there.
     private func initWidget() {
@@ -114,18 +97,10 @@ final class FollowEntitiesSwiftUIViewModel: ObservableObject {
         }
     }
 
-    /// Applies a follow change twofold, mirroring `FollowEntitiesViewController`:
-    ///
-    /// While the feed is visible, the widget is simply rebuilt with the fresh tabs.
-    ///
-    /// While the fullscreen player is open, the new "Your Picks" data source is swapped in via
-    /// `upsertTabs` — a data-source-only upsert doesn't touch the tabs UI or playback — and
-    /// non-active tabs refetch right away (`reloadNonActiveTabs`), so switching to "Your Picks"
-    /// within the same player session already shows fresh content. The active tab is never
-    /// reloaded mid-playback: a change made while watching "Your Picks" itself is applied on
-    /// the next switch to another tab (see `onTabSelected`). The full widget rebuild on return
-    /// to the feed (`viewDidAppear`) stays as the catch-all — it covers the still-active tab
-    /// and re-adds the tab in case the SDK removed it after it loaded empty.
+    /// While the feed is visible, just rebuild the widget. While the fullscreen player is
+    /// open, swap the "Your Picks" data source via `upsertTabs` and refresh non-active tabs
+    /// right away — the active tab is never reloaded mid-playback, it catches up on the next
+    /// tab switch or once the feed is visible again.
     private func handleFollowChanged() {
         if isViewVisible {
             reloadMomentsFollowTabsWidget()
@@ -144,9 +119,7 @@ final class FollowEntitiesSwiftUIViewModel: ObservableObject {
         hasPendingWidgetReinit = true
     }
 
-    /// Full refresh of the tabs widget — used when the feed is visible or after the player closes.
     private func reloadMomentsFollowTabsWidget() {
-        // A full refresh rebuilds every tab fresh, so no in-session reload is owed anymore.
         hasPendingYourPicksReload = false
         let yourPicksTab = makeYourPicksTab()
         self.yourPicksTab = yourPicksTab
@@ -170,9 +143,8 @@ final class FollowEntitiesSwiftUIViewModel: ObservableObject {
         ]
     }
 
-    /// "Your Picks" surfaces moments labeled with any of the followed entity ids or the general
-    /// highlights label. `labelsPriority` ranks the followed entities first (most recently followed
-    /// on top), so personalized content leads and general highlights fill in whenever it runs short.
+    /// Ranks followed entities first (most recently followed on top); general highlights fill
+    /// in whenever personalized content runs short.
     private func makeYourPicksTab() -> BlazeMomentsContainerTabItem {
         let labels = SampleFollowEntitiesManager.shared.recentFollowedEntityIds() + [ConfigManager.momentContainerLabel1]
 
@@ -187,9 +159,7 @@ final class FollowEntitiesSwiftUIViewModel: ObservableObject {
         )
     }
 
-    /// Shows the follow button in the moments player. The entity offered to follow
-    /// is resolved in a fallback order: player -> team -> property.
-    /// The followed state is highlighted so it clearly stands out from the unfollowed one.
+    /// Entity offered to follow is resolved player -> team -> property.
     private func makeFollowMomentsPlayerStyle() -> BlazeMomentsPlayerStyle {
         let wscAccentColor = UIColor(hex: "E5FF00") ?? .systemYellow
         var style = Blaze.shared.getDefaultMomentsPlayerStyle()

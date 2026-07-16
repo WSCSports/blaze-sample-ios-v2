@@ -6,12 +6,8 @@
 import SwiftUI
 import BlazeSDK
 
-///
-/// `FollowEntitiesSwiftUIView` demonstrates the BlazeSDK Follow Entities feature end to end,
-/// via a single tabs-backed Moments widget (Trending / For You / Your Picks), built with SwiftUI.
-/// "Your Picks" is personalized from the entities the user follows in the moments player
-/// (see `Samples/FollowEntities/Follow/`). Mirrors `FollowEntitiesViewController`, the UIKit variant.
-///
+/// SwiftUI counterpart to `FollowEntitiesViewController` — same tabs-backed Moments widget
+/// (Trending / For You / Your Picks), personalized via followed entities.
 struct FollowEntitiesSwiftUIView: View {
 
     @StateObject private var viewModel = FollowEntitiesSwiftUIViewModel()

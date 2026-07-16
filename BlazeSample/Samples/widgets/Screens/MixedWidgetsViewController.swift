@@ -8,15 +8,10 @@
 import UIKit
 import BlazeSDK
 
+/// Displays a mixed feed of Blaze widgets: a stories row, a moments row, a videos row, and a
+/// stories grid, with pull-to-refresh.
 ///
-/// MixedWidgetsViewController displays a mixed feed of Blaze widgets: a stories row, a moments
-/// row, a videos row, and a stories grid.
-/// It manages reloading widget data with pull-to-refresh.
-///
-/// For the personalized, tabs-backed "Moments Follow Tabs" widget (the Follow Entities example),
-/// see `Samples/FollowEntities/`.
-///
-
+/// For the personalized, tabs-backed "Moments Follow Tabs" widget, see `Samples/FollowEntities/`.
 class MixedWidgetsViewController: UIViewController {
 
     private let contentView = MixedWidgetsView()
