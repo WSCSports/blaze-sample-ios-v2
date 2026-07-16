@@ -39,6 +39,8 @@ struct DefaultAppViewFactory: AppViewFactory {
             SwiftUIWidgetsTabView()
         case .search:
             searchView()
+        case .followEntities:
+            FollowEntitiesListView()
         case .followEntitiesUIKit:
             wrapped(FollowEntitiesViewController(), title: "Follow Entities")
         case .followEntitiesSwiftUI:

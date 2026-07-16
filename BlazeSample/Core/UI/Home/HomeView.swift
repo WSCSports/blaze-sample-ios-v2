@@ -21,8 +21,7 @@ struct HomeView: View {
         .init(icon: "swiftUI", title: "SwiftUI", subtitle: "SwiftUI widgets implementation", route: .swiftUI),
         .init(icon: "playerStyle", title: "Videos Inline", subtitle: "Auto-playing video feed with inline players", route: .videosInline),
         .init(icon: "search", title: "Search", subtitle: "Custom search screen example", route: .search),
-        .init(icon: "moments", title: "Follow Entities (UIKit)", subtitle: "Personalized Moments Follow Tabs widget example", route: .followEntitiesUIKit),
-        .init(icon: "swiftUI", title: "Follow Entities (SwiftUI)", subtitle: "Personalized Moments Follow Tabs widget example", route: .followEntitiesSwiftUI),
+        .init(icon: "moments", title: "Follow Entities", subtitle: "Personalized Moments Follow Tabs widget example", route: .followEntities),
     ]
     
     var body: some View {

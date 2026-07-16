@@ -2,8 +2,8 @@
 
 This module demonstrates the BlazeSDK Follow Entities feature end to end, via a single
 personalized, tabs-backed Moments widget (Trending / For You / Your Picks). It's provided as two
-parallel, functionally identical screens — one built with UIKit, one with SwiftUI — reachable
-directly from the app's Home screen ("Follow Entities (UIKit)" / "Follow Entities (SwiftUI)").
+parallel, functionally identical screens — one built with UIKit, one with SwiftUI — reachable via
+the "Follow Entities" entry on the Home screen, which lists both variants.
 
 ## Main Components
 
@@ -24,6 +24,6 @@ directly from the app's Home screen ("Follow Entities (UIKit)" / "Follow Entitie
 
 ## Usage
 
-1. Navigate to "Follow Entities (UIKit)" or "Follow Entities (SwiftUI)" from the Home screen
+1. Navigate to "Follow Entities" from the Home screen, then pick "UIKit" or "SwiftUI"
 2. Tap the widget to open the fullscreen tabs player
 3. Follow a player/team/property from within the player — watch `Your Picks` update with the new priority
