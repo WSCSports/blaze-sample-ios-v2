@@ -12,9 +12,12 @@ This module demonstrates the implementation and customization of various widgets
 
 ### MixedWidgetsViewController
 - Demonstrates multiple widget types in a single scrollable feed
-- Manages four different widget types simultaneously: Stories Row, Stories Grid, Moments Row, Videos Row
+- Manages a Stories Row, a Moments Row, a Videos Row, and a Stories Grid
 - Handles widget lifecycle, pull-to-refresh functionality, and section headers
 - Uses WidgetSectionView for proper layout organization
+
+> The personalized, tabs-backed "Moments Follow Tabs" widget (Follow Entities example) has its own
+> dedicated module — see `Samples/FollowEntities/`.
 
 ### Widget Screen Controllers
 - Individual controllers for each widget type: StoriesRowViewController, StoriesGridViewController, MomentsRowViewController, MomentsGridViewController, VideosRowViewController, VideosGridViewController
