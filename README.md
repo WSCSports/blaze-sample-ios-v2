@@ -146,6 +146,7 @@ BlazeSDK can be integrated using multiple approaches:
 **What it demonstrates**:
 - Implementation of various widget types (Stories, Moments, Videos)
 - Row and Grid layout options
+- Live video filtering (Videos widget filtered to live/upcoming/ended stream content)
 - Mixed widgets (multiple widgets on the same screen)
 - Runtime editing capabilities:
   - Data source editing (label names, order types)
@@ -154,7 +155,7 @@ BlazeSDK can be integrated using multiple approaches:
 
 **Key Features**:
 - Custom appearance settings
-- Status indicators
+- Status indicators, including per-stream-state (live/upcoming/ended) styling
 - Badge management
 - Item style overrides
 
@@ -237,6 +238,7 @@ BLAZE_MOMENTS_ROW_LABEL = moments-main
 BLAZE_MOMENTS_GRID_LABEL = moments-main
 BLAZE_VIDEOS_ROW_LABEL = video-long-form
 BLAZE_VIDEOS_GRID_LABEL = video-long-form
+BLAZE_VIDEOS_LIVE_ROW_LABEL = match
 
 // Ad settings
 BLAZE_AD_UNIT = /123456789/CustomNativeUnitTest
@@ -273,7 +275,7 @@ BLAZE_CACHE_SIZE = 500
 
 ## System Requirements
 
-- iOS 13.0 or higher
+- iOS 15.0 or higher
 - Xcode 13.0 or higher
 - Swift 5.5 or higher
 
