@@ -39,6 +39,7 @@ This module demonstrates how to use and customize Blaze player styles for Storie
 - Provides CTA button customization with visibility control options (always visible or timed).
 - Includes seek bar optimization specifically designed for video playback experience.
 - Integrates both custom assets and system SF Symbols with proper sizing configuration.
+- Demonstrates the overlay "hide time" (`overlayVisibilityThreshold`) — see `applyCustomOverlayVisibility()`.
 
 ## Player Style Customization Options
 
@@ -68,6 +69,7 @@ This module demonstrates how to use and customize Blaze player styles for Storie
 - Seek bar customization for video playback optimization
 - Asset integration using both custom app icons and system SF Symbols
 - Consistent color theming using app accent color
+- Overlay "hide time" (`overlayVisibilityThreshold`) — how long the controls stay visible before auto-hiding
 
 **Note**: Videos player style has limitations compared to Stories and Moments players. It does not support background color customization, text overlays, chip indicators, first time slide onboarding, or gradient configurations.
 
@@ -95,6 +97,17 @@ style.captions.positioning.xPosition = .center
 ```
 
 See `applyCustomStoryCaptionsStyle()`, `applyCaptionsStyle()` (Moments), and `applyCustomVideosCaptionsStyle()` in the custom style files. Make sure the captions toggle button is visible (`buttons.captions.isVisible = true`) so the effect can be seen.
+
+## Overlay Hide Time (Videos)
+
+`BlazeVideosPlayerStyle.overlayVisibilityThreshold` controls how long (in seconds) the videos player's controls overlay stays visible after being shown, before it auto-hides. The SDK default is 3s (`BlazeVideosPlayerStyle.defaultOverlayVisibilityThreshold`); non-positive values fall back to that default.
+
+```swift
+// Keep the controls on screen longer than the 3s default
+style.overlayVisibilityThreshold = 6
+```
+
+The custom Videos player style demonstrates this via `applyCustomOverlayVisibility()` — open the "Custom Videos Player Style" widget's player and note the controls stay visible longer than the default row.
 
 ## Playback Configuration
 
