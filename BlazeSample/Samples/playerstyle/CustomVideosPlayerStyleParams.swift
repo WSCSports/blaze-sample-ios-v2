@@ -32,7 +32,20 @@ extension BlazeVideosPlayerStyle {
         // Apply custom closed captions style (font + on-screen position)
         style.applyCustomVideosCaptionsStyle()
 
+        // Apply custom overlay hide time (how long the controls stay visible before auto-hiding)
+        style.applyCustomOverlayVisibility()
+
         return style
+    }
+
+    /// Demonstrates customizing the videos player's overlay "hide time".
+    ///
+    /// `overlayVisibilityThreshold` is how long (in seconds) the controls overlay stays visible
+    /// after being shown before it auto-hides. The SDK default is 3s
+    /// (`BlazeVideosPlayerStyle.defaultOverlayVisibilityThreshold`); non-positive values fall back
+    /// to that default. Here we keep the controls on screen longer (6s) than the default.
+    mutating func applyCustomOverlayVisibility() {
+        overlayVisibilityThreshold = 6
     }
 
     /// Demonstrates customizing closed captions for the videos player.
