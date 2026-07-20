@@ -89,9 +89,10 @@ class BaseWidgetEditOptionsViewController: BaseWidgetViewController {
         // override in subclass if needed
     }
 
-    // Handles the data state update based on new customization state.
+    // Handles the data state update based on the data source example selected
+    // in the "Edit data source" sheet - see WidgetDataState.toDataSource().
     func onNewDatasourceState(_ newDataState: WidgetDataState) {
-        // override in subclass if needed
+        widgetView?.updateDataSourceType(dataSourceType: newDataState.toDataSource(), progressType: .skeleton)
     }
     
     // Handles the layout update based on new customization state.
@@ -178,11 +179,10 @@ class BaseWidgetEditOptionsViewController: BaseWidgetViewController {
 
         let sheetView = BottomSheetContainerWrapper(
             detentState: detentState,
-            initialLabel: viewModel.widgetDataState.labelName,
-            initialOrderType: viewModel.widgetDataState.orderType,
+            initialDataState: viewModel.widgetDataState,
             styleState: viewModel.styleState
-        ) { [weak self] newLabel, newOrderType, newOptions in
-            self?.viewModel.widgetDataState = .init(labelName: newLabel, orderType: newOrderType)
+        ) { [weak self] newDataState, newOptions in
+            self?.viewModel.widgetDataState = newDataState
             self?.viewModel.styleState = newOptions
             self?.updateCustomizationHeader()
         }
@@ -193,7 +193,7 @@ class BaseWidgetEditOptionsViewController: BaseWidgetViewController {
         if let sheet = hostingController.sheetPresentationController {
             sheet.detents = [
                 .custom(identifier: .init(EditOptionSheetContent.mainMenu.rawValue)) { _ in 240 },
-                .custom(identifier: .init(EditOptionSheetContent.editSource.rawValue)) { _ in 396 },
+                .custom(identifier: .init(EditOptionSheetContent.editSource.rawValue)) { _ in 500 },
                 .custom(identifier: .init(EditOptionSheetContent.customization.rawValue)) { _ in 396 }
             ]
             sheet.selectedDetentIdentifier = detentState.selected
