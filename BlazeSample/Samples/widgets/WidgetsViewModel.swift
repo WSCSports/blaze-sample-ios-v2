@@ -21,6 +21,7 @@ enum WidgetScreenType: String {
     case momentsGrid
     case videosRow
     case videosGrid
+    case liveVideoRow
     case mixed
     case methodsDelegates
 }
@@ -40,6 +41,8 @@ extension WidgetScreenType {
             return ConfigManager.videosRowLabel
         case .videosGrid:
             return ConfigManager.videosGridLabel
+        case .liveVideoRow:
+            return ConfigManager.videosLiveRowLabel
         case .mixed:
             return ""
         case .methodsDelegates:
@@ -113,6 +116,21 @@ final class WidgetsViewModel {
         return layout
     }
 
+    var liveVideoRowBaseLayout: BlazeWidgetLayout {
+        var layout = BlazeWidgetLayout.Presets.VideosWidget.Row.horizontalRectangles
+        layout.maxDisplayItemsCount = nil
+        layout.widgetItemStyle.statusIndicator.isVisible = true
+        layout.widgetItemStyle.statusIndicator.unreadState.backgroundColor = .init(named: "wsc_accent")!
+        layout.widgetItemStyle.statusIndicator.unreadState.textStyle.textColor = .black
+        return layout
+    }
+
+    // Requests stream content, across all stream states, so the Live Video
+    // widget's demo data always has live/upcoming/ended items to show.
+    var liveVideoFilterParams: BlazeVideosFilterParams {
+        BlazeVideosFilterParams(contentTypes: [.stream], streamStates: [.live, .upcoming, .ended])
+    }
+
     init(widgetType: WidgetScreenType = .storiesGrid) {
         self.currentWidgetType = widgetType
         self.widgetDataState = .init(labelName: currentWidgetType.dataSourceLabel, orderType: .manual)
@@ -133,6 +151,8 @@ final class WidgetsViewModel {
             return videosRowBaseLayout
         case .videosGrid:
             return videosGirdBaseLayout
+        case .liveVideoRow:
+            return liveVideoRowBaseLayout
         case .mixed:
             return videosGirdBaseLayout
         case .methodsDelegates:
