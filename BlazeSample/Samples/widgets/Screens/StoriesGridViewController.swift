@@ -37,10 +37,9 @@ class StoriesGridViewController: BaseWidgetEditOptionsViewController {
         // Using `reloadLayout` later is intended only for rare runtime layout changes
         // and is generally **not** the recommended approach.
         let widgetLayout = viewModel.getWidgetLayoutBasePreset()
-        let dataSource = BlazeDataSourceType.labels(
-            .singleLabel(viewModel.widgetDataState.labelName),
-            orderType: viewModel.widgetDataState.orderType
-        )
+        // The data source is built from the state selected in the "Edit data source"
+        // bottom sheet - see WidgetDataState.toDataSource() for all the examples.
+        let dataSource = viewModel.widgetDataState.toDataSource()
 
         let widget = BlazeStoriesWidgetGridView(layout: widgetLayout)
         widget.dataSourceType = dataSource
@@ -82,15 +81,7 @@ class StoriesGridViewController: BaseWidgetEditOptionsViewController {
             widgetView?.resetOverriddenStyles()
         }
     }
-    
-    override func onNewDatasourceState(_ newDataState: WidgetDataState) {
-        let dataSource = BlazeDataSourceType.labels(
-            .singleLabel(newDataState.labelName),
-            orderType: newDataState.orderType
-        )
-        widgetView?.updateDataSourceType(dataSourceType: dataSource, progressType: .skeleton)
-    }
-    
+        
     // for more information see https://dev.wsc-sports.com/docs/ios-blaze-widget-item-image-style
     private func setMyCustomImageStyle(for imageStyle: inout BlazeWidgetItemImageStyle) {
         imageStyle.position = .center
@@ -236,7 +227,7 @@ class StoriesGridViewController: BaseWidgetEditOptionsViewController {
     // We get the mapping key and value from the BE, inside the item object entities field.
     // For more information see https://dev.wsc-sports.com/docs/blazewidgetitemcustommapping#/
     private func setOverrideStylesByTeamId(widgetLayout: BlazeWidgetLayout) {
-        let mappingKey = BlazeWidgetItemCustomMapping.KeysPresets.teamId
+        let mappingKey = BlazeExtraInfoKeyPreset.teamId
         let mappingValue = "178"
         let mapping = BlazeWidgetItemCustomMapping(keyPreset: mappingKey, value: mappingValue)
         let layout = widgetLayout

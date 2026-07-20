@@ -10,7 +10,7 @@ import BlazeSDK
 
 ///
 /// MixedWidgetsViewController is a View that displays a mix feed of Blaze widgets:
-/// Stories-row, Moments-row, and Stories-grid.
+/// Stories-row, Moments-row, Live-video-row, Videos-row, and Stories-grid.
 /// It manages reload widgets data with pull-to-refresh.
 ///
 
@@ -23,6 +23,7 @@ class MixedWidgetsViewController: UIViewController {
     private var storiesGridWidgetView: BlazeStoriesWidgetGridView?
     private var momentsRowWidgetView: BlazeMomentsWidgetRowView?
     private var videosRowWidgetView: BlazeVideosWidgetRowView?
+    private var liveVideoRowWidgetView: BlazeVideosWidgetRowView?
     private var momentsTabsContainer: BlazeMomentsPlayerContainerTabs?
 
     override func loadView() {
@@ -44,6 +45,7 @@ class MixedWidgetsViewController: UIViewController {
     func initWidgets() {
         initStoriesRowWidget()
         initMomentsTabsRowWidget()
+        initLiveVideoRowWidget()
         initVideosRowWidget()
         initStoriesGridWidget()
     }
@@ -122,6 +124,31 @@ class MixedWidgetsViewController: UIViewController {
         contentView.stackView.addArrangedSubview(section)
     }
     
+    func initLiveVideoRowWidget() {
+        // Shown here with the SDK's default (uncustomized) preset - see "Live video row"
+        // under Browse Widgets for a version with status indicator customization.
+        let widgetLayout = viewModel.liveVideoRowBaseLayout
+
+        // advancedOrderType takes priority over orderType, surfacing live streams ahead of
+        // upcoming/ended/VOD content regardless of the base order type.
+        let dataSource = BlazeDataSourceType.labels(
+            .singleLabel(ConfigManager.videosLiveRowLabel),
+            advancedOrderType: .liveFirst
+        )
+
+        let widget = BlazeVideosWidgetRowView(layout: widgetLayout)
+        widget.dataSourceType = dataSource
+        widget.widgetIdentifier = "mixed-widgets-live-video-row-id"
+        widget.widgetDelegate = viewModel.widgetDelegate
+        widget.videosFilterParams = viewModel.liveVideoFilterParams
+        self.liveVideoRowWidgetView = widget
+
+        let section = WidgetSectionView.init(height: 230, title: "Live video row widget")
+        widget.embedInView(section.containerView)
+        widget.reloadData(progressType: .skeleton)
+        contentView.stackView.addArrangedSubview(section)
+    }
+
     func initVideosRowWidget() {
         let widgetLayout = viewModel.videosRowBaseSingleItemLayout
         
@@ -143,7 +170,7 @@ class MixedWidgetsViewController: UIViewController {
     }
 
     @objc private func pullToRefreshTriggered() {
-        [momentsRowWidgetView, storiesGridWidgetView, storiesRowWidgetView, videosRowWidgetView]
+        [momentsRowWidgetView, storiesGridWidgetView, storiesRowWidgetView, videosRowWidgetView, liveVideoRowWidgetView]
             .forEach { $0?.reloadData(progressType: .skeleton) }
 
         // Example: use the tabs container when the player is open to navigate back to the first tab on refresh.

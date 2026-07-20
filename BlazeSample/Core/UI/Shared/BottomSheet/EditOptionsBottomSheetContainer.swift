@@ -36,27 +36,24 @@ struct WidgetLayoutStyleState: Equatable {
 struct EditOptionsBottomSheetContainer: View {
 
     @State private var sheetContent: EditOptionSheetContent = .mainMenu
-    @State var draftLabel: String
-    @State var draftOrderType: BlazeOrderType
+    @State var draftDataState: WidgetDataState
     @State var draftOptions: WidgetLayoutStyleState
     @Binding var selectedDetent: UISheetPresentationController.Detent.Identifier
-    
-    let onApply: (String, BlazeOrderType, WidgetLayoutStyleState) -> Void
+
+    let onApply: (WidgetDataState, WidgetLayoutStyleState) -> Void
 
     init(
-        initialLabel: String,
-        initialOrderType: BlazeOrderType,
+        initialDataState: WidgetDataState,
         initialOptions: WidgetLayoutStyleState,
         selectedDetent: Binding<UISheetPresentationController.Detent.Identifier>,
-        onApply: @escaping (String, BlazeOrderType, WidgetLayoutStyleState) -> Void
+        onApply: @escaping (WidgetDataState, WidgetLayoutStyleState) -> Void
     ) {
-        self._draftLabel = .init(initialValue: initialLabel)
-        self._draftOrderType = .init(initialValue: initialOrderType)
+        self._draftDataState = .init(initialValue: initialDataState)
         self._draftOptions = .init(initialValue: initialOptions)
         self._selectedDetent = selectedDetent
         self.onApply = onApply
     }
-    
+
     var body: some View {
         Group {
             switch sheetContent {
@@ -66,8 +63,7 @@ struct EditOptionsBottomSheetContainer: View {
 
             case .editSource:
                 EditSourceSheetView(
-                    label: $draftLabel,
-                    orderType: $draftOrderType,
+                    dataState: $draftDataState,
                     onApply: applyAndDismiss
                 )
                 .onAppear { selectedDetent = .init(EditOptionSheetContent.editSource.rawValue) }
@@ -84,7 +80,7 @@ struct EditOptionsBottomSheetContainer: View {
     }
 
     private func applyAndDismiss() {
-        onApply(draftLabel, draftOrderType, draftOptions)
+        onApply(draftDataState, draftOptions)
     }
 
     var MainMenu: some View {

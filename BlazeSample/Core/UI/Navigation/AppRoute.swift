@@ -22,6 +22,7 @@ enum AppRoute: Hashable {
     case momentsGrid
     case videoRow
     case videoGrid
+    case liveVideoRow
     case widgetsFeedDemo
     case methodsDelegates
     

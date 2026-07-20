@@ -37,10 +37,9 @@ class MomentsRowViewController: BaseWidgetEditOptionsViewController {
         // Using `reloadLayout` later is intended only for rare runtime layout changes
         // and is generally **not** the recommended approach.
         let widgetLayout = viewModel.getWidgetLayoutBasePreset()
-        let dataSource = BlazeDataSourceType.labels(
-            .singleLabel(viewModel.widgetDataState.labelName),
-            orderType: viewModel.widgetDataState.orderType
-        )
+        // The data source is built from the state selected in the "Edit data source"
+        // bottom sheet - see WidgetDataState.toDataSource() for all the examples.
+        let dataSource = viewModel.widgetDataState.toDataSource()
         
         let widget = BlazeMomentsWidgetRowView(layout: widgetLayout)
         widget.dataSourceType = dataSource
@@ -177,7 +176,7 @@ class MomentsRowViewController: BaseWidgetEditOptionsViewController {
     // We get the mapping key and value from the BE, inside the item object entities field.
     // For more information see https://dev.wsc-sports.com/docs/blazewidgetitemcustommapping#/
     private func setOverrideStylesBySeasonId(widgetLayout: BlazeWidgetLayout) {
-        let mappingKey = BlazeWidgetItemCustomMapping.KeysPresets.seasonId
+        let mappingKey = BlazeExtraInfoKeyPreset.seasonId
         let mappingValue = "2025"
         let mapping = BlazeWidgetItemCustomMapping(keyPreset: mappingKey, value: mappingValue)
         let layout = widgetLayout

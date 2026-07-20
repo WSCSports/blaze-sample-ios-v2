@@ -28,8 +28,43 @@ extension BlazeVideosPlayerStyle {
         
         // Apply custom buttons style
         style.applyCustomVideosButtonsStyle()
-                
+
+        // Apply custom closed captions style (font + on-screen position)
+        style.applyCustomVideosCaptionsStyle()
+
+        // Apply custom overlay hide time (how long the controls stay visible before auto-hiding)
+        style.applyCustomOverlayVisibility()
+
         return style
+    }
+
+    /// Demonstrates customizing the videos player's overlay "hide time".
+    ///
+    /// `overlayVisibilityThreshold` is how long (in seconds) the controls overlay stays visible
+    /// after being shown before it auto-hides. The SDK default is 3s
+    /// (`BlazeVideosPlayerStyle.defaultOverlayVisibilityThreshold`); non-positive values fall back
+    /// to that default. Here we keep the controls on screen longer (6s) than the default.
+    mutating func applyCustomOverlayVisibility() {
+        overlayVisibilityThreshold = 6
+    }
+
+    /// Demonstrates customizing closed captions for the videos player.
+    ///
+    /// `captions.font` embeds the given `UIFont` into the captions WebView (pass `nil` to keep
+    /// the HTML parser's default font). `captions.positioning` controls where the captions box
+    /// sits inside the player; each axis is configured independently:
+    /// - `xPosition`: `.start` / `.center` / `.custom(offsetPercent:)`
+    /// - `yPosition`: `.top` / `.center` / `.bottom` / `.custom(offsetPercent:)`
+    ///
+    /// This example uses `.custom(offsetPercent:)` to place captions ~80% down the player,
+    /// leaving room for the seek bar below.
+    mutating func applyCustomVideosCaptionsStyle() {
+        // Use a system font so the sample needs no bundled font file.
+        captions.font = UIFont(name: "Menlo-Regular", size: 15) ?? .systemFont(ofSize: 15)
+
+        // Offset from the top edge, as a percentage of the player height (coerced into 0...100).
+        captions.positioning.yPosition = .custom(offsetPercent: 80)
+        captions.positioning.xPosition = .center
     }
 }
 

@@ -43,6 +43,15 @@ The ads initialization follows this sequence:
 - Configuration values are loaded from `AppConfig.xcconfig` via `ConfigManager`.
 - Ads remain active for the app lifecycle unless explicitly disabled.
 
+## IMA Ad Prefetching
+
+The SDK prefetches IMA ads automatically to smooth ad transitions: it requests the
+upcoming IMA VAST ad ahead of the slot (and reuses a single `IMAAdsLoader` across the
+session), so a preloaded ad can play immediately without a mid-playback pause, and
+unfilled slots are skipped without showing a loader. This requires **no extra
+configuration** — just enable IMA ads as shown above; prefetching is handled internally
+by the Blaze SDK.
+
 ## Widget Ads Configuration Types
 
 - **`.everyXStories`**: Shows ads interspersed with stories content

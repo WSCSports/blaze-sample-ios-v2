@@ -17,20 +17,18 @@ struct BottomSheetContainerWrapper: View {
 
     @ObservedObject var detentState: DetentState
 
-    let initialLabel: String
-    let initialOrderType: BlazeOrderType
+    let initialDataState: WidgetDataState
     let styleState: WidgetLayoutStyleState
 
-    var onApply: (String, BlazeOrderType, WidgetLayoutStyleState) -> Void
+    var onApply: (WidgetDataState, WidgetLayoutStyleState) -> Void
 
     var body: some View {
         EditOptionsBottomSheetContainer(
-            initialLabel: initialLabel,
-            initialOrderType: initialOrderType,
+            initialDataState: initialDataState,
             initialOptions: styleState,
             selectedDetent: $detentState.selected,
-            onApply: { newLabel, newOrder, newOptions in
-                onApply(newLabel, newOrder, newOptions)
+            onApply: { newDataState, newOptions in
+                onApply(newDataState, newOptions)
                 dismiss()
             }
         )
