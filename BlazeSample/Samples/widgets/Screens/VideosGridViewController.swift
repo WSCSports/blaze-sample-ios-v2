@@ -37,10 +37,9 @@ class VideosGridViewController: BaseWidgetEditOptionsViewController {
         // Using `reloadLayout` later is intended only for rare runtime layout changes
         // and is generally **not** the recommended approach.
         let widgetLayout = viewModel.getWidgetLayoutBasePreset()
-        let dataSource = BlazeDataSourceType.labels(
-            .singleLabel(viewModel.widgetDataState.labelName),
-            orderType: viewModel.widgetDataState.orderType
-        )
+        // The data source is built from the state selected in the "Edit data source"
+        // bottom sheet - see WidgetDataState.toDataSource() for all the examples.
+        let dataSource = viewModel.widgetDataState.toDataSource()
         
         let widget = BlazeVideosWidgetGridView(layout: widgetLayout)
         widget.dataSourceType = dataSource
