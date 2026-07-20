@@ -161,6 +161,8 @@ extension WidgetScreenType {
             return ["684941b4a26bafd24a1f9e8f"]
         case .mixed:
             return []
+        case .liveVideoRow:
+            return []
         }
     }
 }
