@@ -23,6 +23,8 @@ struct DefaultAppViewFactory: AppViewFactory {
             wrapped(VideosRowViewController(), title: "Videos Row")
         case .videoGrid:
             wrapped(VideosGridViewController(), title: "Videos Grid")
+        case .liveVideoRow:
+            wrapped(LiveVideoRowViewController(), title: "Live Video Row")
         case .widgetsFeedDemo:
             wrapped(MixedWidgetsViewController(), title: "Widgets feed")
         case .methodsDelegates:

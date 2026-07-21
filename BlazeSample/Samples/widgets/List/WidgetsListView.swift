@@ -18,6 +18,7 @@ struct WidgetsListView: View {
         .init(title: "Moments grid", subtitle: "A Blaze widget that displays moments in a vertical grid layout", route: .momentsGrid),
         .init(title: "Videos row", subtitle: "A Blaze widget that displays videos in a horizontal row layout", route: .videoRow),
         .init(title: "Videos grid", subtitle: "A Blaze widget that displays videos in a vertical grid layout", route: .videoGrid),
+        .init(title: "Live videos", subtitle: "A Blaze live videos widget", route: .liveVideoRow),
         .init(title: "Widgets feed demo", subtitle: "An example of a feed with multiple widget types", route: .widgetsFeedDemo),
         .init(title: "Methods & Delegates", subtitle: "Demonstrates the different variations widget methods and custom delegates handlers", route: .methodsDelegates),
     ]
