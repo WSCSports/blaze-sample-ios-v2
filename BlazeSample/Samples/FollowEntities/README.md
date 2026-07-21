@@ -7,20 +7,26 @@ the "Follow Entities" entry on the Home screen, which lists both variants.
 
 ## Main Components
 
+### FollowTabsConfiguration
+- Shared builder for the three-tab moments widget configuration (`Trending`, `For You`, `Your Picks`) and the moments player style with the follow button. Keeps the tab setup identical across both variants
+- `Your Picks` blends the user's followed entity labels with the general highlights label, ranks the followed entities first via `labelsPriority` (most recently followed on top) and sorts within the same priority with `orderType: .recentlyUpdatedFirst`, so personalized content leads and general highlights fill in whenever it runs short
+- The in-player follow button is enabled on the tabs container's player style with entity resolution `Player -> Team -> Property`. A single player style applies to the whole tabs container, so the button appears on every tab
+
+### FollowTabsRefreshCoordinator
+- Shared refresh choreography for the `Your Picks` tab, used by both variants so the behavior lives in one place
+- While the screen is visible the widget rebuilds right away; while the fullscreen player is open, the new `Your Picks` data source is swapped in via `upsertTabs` (a data-source-only upsert doesn't touch the tabs UI or playback) and non-active tabs refetch right away (`reloadNonActiveTabs`), so switching to `Your Picks` within the same player session already shows fresh content — the active tab itself is never reloaded mid-playback, and the full rebuild on return to the screen is the catch-all
+
 ### FollowEntitiesViewController (UIKit)
 - Builds a tabs-backed moments widget (`BlazeMomentsWidgetRowView(layout:tabsContainer:)`) with
-  three tabs: `Trending`, `For You`, and `Your Picks`
+  three tabs, wiring it to a `FollowTabsRefreshCoordinator`
 
 ### FollowEntitiesSwiftUIView / FollowEntitiesSwiftUIViewModel (SwiftUI)
 - Same three-tab widget, built with `BlazeSwiftUIMomentsRowWidgetView` and
-  `BlazeSwiftUIMomentsWidgetViewModel(tabsWidgetConfiguration:)`
+  `BlazeSwiftUIMomentsWidgetViewModel(tabsWidgetConfiguration:)`, wiring it to its own `FollowTabsRefreshCoordinator`
 
-### Personalized "Your Picks"
-- `Your Picks` is the Follow Entities example: it blends the user's followed entity labels with the general highlights label, ranks the followed entities first via `labelsPriority` (most recently followed on top) and sorts within the same priority with `orderType: .recentlyUpdatedFirst`, so personalized content leads and general highlights fill in whenever it runs short
-- The in-player follow button is enabled on the tabs container's player style with entity resolution `Player -> Team -> Property`. A single player style applies to the whole tabs container, so the button appears on every tab
-- Follow state is owned by `SampleFollowEntitiesManager` (see `Follow/`), which wraps `Blaze.shared.followEntitiesManager`, persists to `UserDefaults` via `SampleFollowEntitiesStorage`, and rebuilds the `Your Picks` tab on every follow change
-- Follow changes are applied twofold: while the screen is visible the widget rebuilds right away; while the fullscreen player is open, the new `Your Picks` data source is swapped in via `upsertTabs` (a data-source-only upsert doesn't touch the tabs UI or playback) and non-active tabs refetch right away (`reloadNonActiveTabs`), so switching to `Your Picks` within the same player session already shows fresh content — the active tab itself is never reloaded mid-playback, and the full rebuild on return to the screen is the catch-all
-- Follow state is hydrated into the SDK right after a successful `Blaze.shared.initialize(...)` (see `BlazeSDKInteractor`) — independent of whether either screen has ever been opened
+### Follow state
+- Owned by `SampleFollowEntitiesManager` (see `Follow/`), which wraps `Blaze.shared.followEntitiesManager`, persists to `UserDefaults` via `SampleFollowEntitiesStorage`, and notifies both coordinators on every follow change
+- Hydrated into the SDK right after a successful `Blaze.shared.initialize(...)` (see `BlazeSDKInteractor`) — independent of whether either screen has ever been opened
 
 ## Usage
 
