@@ -26,11 +26,13 @@
 				Core/moment_push.apns,
 				Samples/ads/README.md,
 				Samples/entrypoint/README.md,
+				Samples/FollowEntities/README.md,
 				Samples/globalsettings/README.md,
 				Samples/momentscontainer/README.md,
 				Samples/playerstyle/README.md,
 				Samples/search/README.md,
 				Samples/swiftUI/README.md,
+				Samples/videosinline/README.md,
 				Samples/widgets/README.md,
 			);
 			target = 50A610142DF7045E002BDDBB /* blaze-sample-ios-v2 */;
