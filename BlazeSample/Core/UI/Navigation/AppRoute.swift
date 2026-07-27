@@ -28,6 +28,10 @@ enum AppRoute: Hashable {
     
     case search
 
+    case followEntities
+    case followEntitiesUIKit
+    case followEntitiesSwiftUI
+
     // Videos Inline Routes
     case simpleFeedExample
     case videosFeed
