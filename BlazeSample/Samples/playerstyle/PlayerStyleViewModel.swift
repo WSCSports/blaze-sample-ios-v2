@@ -51,6 +51,19 @@ final class PlayerStyleViewModel: ObservableObject {
         layout.margins = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
         return layout
     }
+
+    /// The play icon overlay is hidden by default on every preset.
+    var customMomentsWidgetLayout: BlazeWidgetLayout {
+        var layout = momentsWidgetLayout
+        layout.widgetItemStyle.playIconElement.isVisible = true
+        return layout
+    }
+
+    var customVideosRowSingleItemLayout: BlazeWidgetLayout {
+        var layout = videosRowBaseSingleItemLayout
+        layout.widgetItemStyle.playIconElement.isVisible = true
+        return layout
+    }
     
     // MARK: - Data Sources
     var storiesDataSource: BlazeDataSourceType {

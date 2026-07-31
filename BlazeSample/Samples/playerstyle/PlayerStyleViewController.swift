@@ -126,7 +126,7 @@ final class PlayerStyleViewController: UIViewController {
     }
     
     private func initCustomMomentsRowWidget() {
-        let widgetLayout = viewModel.momentsWidgetLayout
+        let widgetLayout = viewModel.customMomentsWidgetLayout
         
         let dataSource = BlazeDataSourceType.labels(
             .singleLabel(ConfigManager.momentsRowLabel)
@@ -171,7 +171,7 @@ final class PlayerStyleViewController: UIViewController {
     }
     
     private func initCustomVideosRowWidget() {
-        let widgetLayout = viewModel.videosRowBaseSingleItemLayout
+        let widgetLayout = viewModel.customVideosRowSingleItemLayout
         
         let dataSource = BlazeDataSourceType.labels(
             .singleLabel(ConfigManager.videosRowLabel)
