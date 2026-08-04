@@ -109,6 +109,19 @@ style.overlayVisibilityThreshold = 6
 
 The custom Videos player style demonstrates this via `applyCustomOverlayVisibility()` — open the "Custom Videos Player Style" widget's player and note the controls stay visible longer than the default row.
 
+## Play Icon Overlay
+
+`BlazeWidgetItemStyle.playIconElement` renders a play icon centered on the widget item's thumbnail. It is hidden by default on every preset, so it has to be enabled explicitly. Only visibility is customizable — the SDK ships a single built-in design.
+
+```swift
+var layout = BlazeWidgetLayout.Presets.MomentsWidget.Row.verticalAnimatedThumbnailsRectangles
+layout.widgetItemStyle.playIconElement.isVisible = true
+```
+
+The demo enables it on the custom rows only, via `customMomentsWidgetLayout` and `customVideosRowSingleItemLayout` — compare "Custom Moments Player Style" against "Default Moments Player Style" (and the same pair for Videos) to see the thumbnails with and without the overlay.
+
+**Note**: this is a widget item property rather than a player style one. It configures the row's thumbnails, not the controls inside the player, and is therefore set on the layout instead of on `BlazePlayerStyle`.
+
 ## Playback Configuration
 
 `momentsPlaybackConfiguration` controls loop behaviour independently of player style. The demo sets `loopAndAdvance(numberOfPlays: 2)`, which plays each moment twice before automatically advancing to the next one:
