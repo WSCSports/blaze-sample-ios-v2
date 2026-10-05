@@ -161,7 +161,11 @@ extension MomentsContainerViewModel {
             onPlayerEventTriggered: { [weak self] params in
                 self?.handlePlayerEvent(params.event, sourceId: params.sourceId)
             },
-            onSearchClicked: onSearchClicked
+            onSearchClicked: onSearchClicked,
+            onTriggerInteractionLink: { params in
+                Logger.shared.log("onTriggerInteractionLink", object: params)
+                return .deeplink
+            }
         )
     }
 }
@@ -188,6 +192,9 @@ extension MomentsContainerViewModel {
             Logger.shared.log("ContainerTabsDelegate onTriggerCustomActionButton", object: params)
         } onTabSelected: { params in
             Logger.shared.log("ContainerTabsDelegate onTabSelected", object: params)
+        } onTriggerInteractionLink: { params in
+            Logger.shared.log("ContainerTabsDelegate onTriggerInteractionLink", object: params)
+            return .deeplink
         }
     }
 }
