@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CustomizationSheetView: View {
     @Binding var options: WidgetLayoutStyleState
+    let showsAnimatedThumbnailsOption: Bool
     var onApply: () -> Void
 
     @State private var draftOptions = WidgetLayoutStyleState()
@@ -41,6 +42,12 @@ struct CustomizationSheetView: View {
                     subTitle: "Changes will appear on the second item",
                     isOn: $draftOptions.isCustomItemStyleOverrides
                 )
+
+                if showsAnimatedThumbnailsOption {
+                    Divider()
+
+                    checkboxRow(title: "Animated thumbnails (GIFs)", isOn: $draftOptions.isAnimatedThumbnails)
+                }
             }
 
             Divider()

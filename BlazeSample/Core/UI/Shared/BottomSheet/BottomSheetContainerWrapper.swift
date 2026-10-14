@@ -19,6 +19,7 @@ struct BottomSheetContainerWrapper: View {
 
     let initialDataState: WidgetDataState
     let styleState: WidgetLayoutStyleState
+    let showsAnimatedThumbnailsOption: Bool
 
     var onApply: (WidgetDataState, WidgetLayoutStyleState) -> Void
 
@@ -26,6 +27,7 @@ struct BottomSheetContainerWrapper: View {
         EditOptionsBottomSheetContainer(
             initialDataState: initialDataState,
             initialOptions: styleState,
+            showsAnimatedThumbnailsOption: showsAnimatedThumbnailsOption,
             selectedDetent: $detentState.selected,
             onApply: { newDataState, newOptions in
                 onApply(newDataState, newOptions)

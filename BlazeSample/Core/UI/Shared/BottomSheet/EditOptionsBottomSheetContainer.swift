@@ -31,6 +31,7 @@ struct WidgetLayoutStyleState: Equatable {
     var isCustomTitle: Bool = false
     var isCustomBadge: Bool = false
     var isCustomItemStyleOverrides: Bool = false
+    var isAnimatedThumbnails: Bool = false
 }
 
 struct EditOptionsBottomSheetContainer: View {
@@ -40,16 +41,19 @@ struct EditOptionsBottomSheetContainer: View {
     @State var draftOptions: WidgetLayoutStyleState
     @Binding var selectedDetent: UISheetPresentationController.Detent.Identifier
 
+    let showsAnimatedThumbnailsOption: Bool
     let onApply: (WidgetDataState, WidgetLayoutStyleState) -> Void
 
     init(
         initialDataState: WidgetDataState,
         initialOptions: WidgetLayoutStyleState,
+        showsAnimatedThumbnailsOption: Bool,
         selectedDetent: Binding<UISheetPresentationController.Detent.Identifier>,
         onApply: @escaping (WidgetDataState, WidgetLayoutStyleState) -> Void
     ) {
         self._draftDataState = .init(initialValue: initialDataState)
         self._draftOptions = .init(initialValue: initialOptions)
+        self.showsAnimatedThumbnailsOption = showsAnimatedThumbnailsOption
         self._selectedDetent = selectedDetent
         self.onApply = onApply
     }
@@ -70,6 +74,7 @@ struct EditOptionsBottomSheetContainer: View {
             case .customization:
                 CustomizationSheetView(
                     options: $draftOptions,
+                    showsAnimatedThumbnailsOption: showsAnimatedThumbnailsOption,
                     onApply: applyAndDismiss
                 )
                 .onAppear { selectedDetent = .init(EditOptionSheetContent.customization.rawValue) }
