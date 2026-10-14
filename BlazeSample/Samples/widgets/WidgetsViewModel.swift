@@ -189,7 +189,7 @@ final class WidgetsViewModel {
     var onRefreshCompleted: (() -> Void)?
 
     var storiesRowBaseLayout: BlazeWidgetLayout {
-        BlazeWidgetLayout.Presets.StoriesWidget.Row.circles
+        BlazeWidgetLayout.Presets.StoriesWidget.Row.animatedThumbnailsCircles
     }
     
     var storiesGridBaseLayout: BlazeWidgetLayout {
@@ -214,7 +214,7 @@ final class WidgetsViewModel {
     }
     
     var videosRowBaseLayout: BlazeWidgetLayout {
-        var layout = BlazeWidgetLayout.Presets.VideosWidget.Row.horizontalRectangles
+        var layout = BlazeWidgetLayout.Presets.VideosWidget.Row.horizontalAnimatedThumbnailsRectangles
         layout.horizontalItemsSpacing = 16
         return layout
     }
