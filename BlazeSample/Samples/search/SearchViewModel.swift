@@ -92,7 +92,8 @@ final class SearchViewModel {
                     itemsCount: params.itemsCount,
                     result: params.result
                 )
-            }
+            },
+            onContentRestricted: ContentRestrictionHandler.onContentRestricted
         )
     }
 
