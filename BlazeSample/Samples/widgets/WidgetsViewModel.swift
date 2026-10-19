@@ -262,7 +262,12 @@ final class WidgetsViewModel {
     
     // Grid widgets don't play animated thumbnails, so only these rows use an animated preset
     var hasAnimatedThumbnailsPreset: Bool {
-        [.storiesRow, .momentsRow, .videosRow].contains(currentWidgetType)
+        switch currentWidgetType {
+        case .storiesRow, .momentsRow, .videosRow:
+            return true
+        default:
+            return false
+        }
     }
 
     func getWidgetLayoutBasePreset() -> BlazeWidgetLayout {
