@@ -36,9 +36,7 @@ class VideosRowViewController: BaseWidgetEditOptionsViewController {
         // do it *before* initializing the widget and pass the layout during creation.
         // Using `reloadLayout` later is intended only for rare runtime layout changes
         // and is generally **not** the recommended approach.
-        var widgetLayout = viewModel.getWidgetLayoutBasePreset()
-        // GIFs follow the "Animated thumbnails (GIFs)" option, which is off by default
-        widgetLayout.widgetItemStyle.image.animatedThumbnail.isEnabled = viewModel.styleState.isAnimatedThumbnails
+        let widgetLayout = viewModel.getWidgetLayoutBasePreset()
         // The data source is built from the state selected in the "Edit data source"
         // bottom sheet - see WidgetDataState.toDataSource() for all the examples.
         let dataSource = viewModel.widgetDataState.toDataSource()
@@ -73,7 +71,9 @@ class VideosRowViewController: BaseWidgetEditOptionsViewController {
             setMyCustomBadgeStyle(for: &layout.widgetItemStyle.badge)
         }
 
-        layout.widgetItemStyle.image.animatedThumbnail.isEnabled = styleState.isAnimatedThumbnails
+        if styleState.isStaticThumbnails {
+            layout.widgetItemStyle.image.animatedThumbnail.isEnabled = false
+        }
         
         widgetView?.reloadLayout(with: layout)
         
