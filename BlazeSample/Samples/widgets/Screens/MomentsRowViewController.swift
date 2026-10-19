@@ -69,6 +69,10 @@ class MomentsRowViewController: BaseWidgetEditOptionsViewController {
         if styleState.isCustomBadge {
             setMyCustomBadgeStyle(for: &layout.widgetItemStyle.badge)
         }
+
+        if styleState.isStaticThumbnails {
+            layout.widgetItemStyle.image.animatedThumbnail.isEnabled = false
+        }
         
         widgetView?.reloadLayout(with: layout)
 

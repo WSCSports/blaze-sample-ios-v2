@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CustomizationSheetView: View {
     @Binding var options: WidgetLayoutStyleState
+    let showsStaticThumbnailsOption: Bool
     var onApply: () -> Void
 
     @State private var draftOptions = WidgetLayoutStyleState()
@@ -41,6 +42,12 @@ struct CustomizationSheetView: View {
                     subTitle: "Changes will appear on the second item",
                     isOn: $draftOptions.isCustomItemStyleOverrides
                 )
+
+                if showsStaticThumbnailsOption {
+                    Divider()
+
+                    checkboxRow(title: "Static thumbnails (no GIFs)", isOn: $draftOptions.isStaticThumbnails)
+                }
             }
 
             Divider()

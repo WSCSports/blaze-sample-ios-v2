@@ -188,14 +188,16 @@ final class WidgetsViewModel {
     
     var onRefreshCompleted: (() -> Void)?
 
+    // The animated (GIF) thumbnails version of circles; the "Static thumbnails (no GIFs)" option turns its GIFs off
     var storiesRowBaseLayout: BlazeWidgetLayout {
-        BlazeWidgetLayout.Presets.StoriesWidget.Row.circles
+        BlazeWidgetLayout.Presets.StoriesWidget.Row.animatedThumbnailsCircles
     }
     
     var storiesGridBaseLayout: BlazeWidgetLayout {
         BlazeWidgetLayout.Presets.StoriesWidget.Grid.twoColumnsVerticalRectangles
     }
     
+    // Animated (GIF) thumbnails preset; the "Static thumbnails (no GIFs)" option turns its GIFs off
     var momentsRowBaseLayout: BlazeWidgetLayout {
         var layout = BlazeWidgetLayout.Presets.MomentsWidget.Row.verticalAnimatedThumbnailsRectangles
         layout.horizontalItemsSpacing = 0
@@ -213,8 +215,9 @@ final class WidgetsViewModel {
         return layout
     }
     
+    // The animated (GIF) thumbnails version of horizontalRectangles; the "Static thumbnails (no GIFs)" option turns its GIFs off
     var videosRowBaseLayout: BlazeWidgetLayout {
-        var layout = BlazeWidgetLayout.Presets.VideosWidget.Row.horizontalRectangles
+        var layout = BlazeWidgetLayout.Presets.VideosWidget.Row.horizontalAnimatedThumbnailsRectangles
         layout.horizontalItemsSpacing = 16
         return layout
     }
@@ -257,6 +260,16 @@ final class WidgetsViewModel {
         self.styleState = WidgetLayoutStyleState()
     }
     
+    // Grid widgets don't play animated thumbnails, so only these rows use an animated preset
+    var hasAnimatedThumbnailsPreset: Bool {
+        switch currentWidgetType {
+        case .storiesRow, .momentsRow, .videosRow:
+            return true
+        default:
+            return false
+        }
+    }
+
     func getWidgetLayoutBasePreset() -> BlazeWidgetLayout {
         switch currentWidgetType {
         case .storiesGrid:

@@ -167,7 +167,8 @@ class BaseWidgetEditOptionsViewController: BaseWidgetViewController {
             viewModel.styleState.isCustomStatusIndicator ? "Indicator" : nil,
             viewModel.styleState.isCustomTitle ? "Title" : nil,
             viewModel.styleState.isCustomBadge ? "Badge" : nil,
-            viewModel.styleState.isCustomItemStyleOverrides ? "Item override" : nil
+            viewModel.styleState.isCustomItemStyleOverrides ? "Item override" : nil,
+            viewModel.styleState.isStaticThumbnails ? "Static Thumbnails" : nil
         ].compactMap { $0 }
 
         customizationLabel.isHidden = tags.isEmpty
@@ -176,11 +177,13 @@ class BaseWidgetEditOptionsViewController: BaseWidgetViewController {
 
     @objc private func showBottomSheet() {
         let detentState = DetentState()
+        let showsStaticThumbnailsOption = viewModel.hasAnimatedThumbnailsPreset
 
         let sheetView = BottomSheetContainerWrapper(
             detentState: detentState,
             initialDataState: viewModel.widgetDataState,
-            styleState: viewModel.styleState
+            styleState: viewModel.styleState,
+            showsStaticThumbnailsOption: showsStaticThumbnailsOption
         ) { [weak self] newDataState, newOptions in
             self?.viewModel.widgetDataState = newDataState
             self?.viewModel.styleState = newOptions
@@ -194,7 +197,7 @@ class BaseWidgetEditOptionsViewController: BaseWidgetViewController {
             sheet.detents = [
                 .custom(identifier: .init(EditOptionSheetContent.mainMenu.rawValue)) { _ in 240 },
                 .custom(identifier: .init(EditOptionSheetContent.editSource.rawValue)) { _ in 500 },
-                .custom(identifier: .init(EditOptionSheetContent.customization.rawValue)) { _ in 396 }
+                .custom(identifier: .init(EditOptionSheetContent.customization.rawValue)) { _ in showsStaticThumbnailsOption ? 446 : 396 }
             ]
             sheet.selectedDetentIdentifier = detentState.selected
             sheet.prefersGrabberVisible = true

@@ -64,6 +64,8 @@ class StoriesRowViewController: BaseWidgetEditOptionsViewController {
         
         if (styleState.isCustomAppearance) {
             setMyCustomImageStyle(for: &layout.widgetItemStyle.image)
+            // verticalRectangles has GIF thumbnails off; any row layout can turn them on
+            layout.widgetItemStyle.image.animatedThumbnail.isEnabled = true
         }
         
         if styleState.isCustomStatusIndicator {
@@ -76,6 +78,10 @@ class StoriesRowViewController: BaseWidgetEditOptionsViewController {
         
         if styleState.isCustomBadge {
             setMyCustomBadgeStyle(for: &layout.widgetItemStyle.badge)
+        }
+
+        if styleState.isStaticThumbnails {
+            layout.widgetItemStyle.image.animatedThumbnail.isEnabled = false
         }
         
         widgetView?.reloadLayout(with: layout)
