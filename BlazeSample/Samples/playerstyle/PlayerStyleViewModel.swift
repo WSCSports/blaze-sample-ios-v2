@@ -43,6 +43,9 @@ final class PlayerStyleViewModel: ObservableObject {
         layout.horizontalItemsSpacing = 8
         layout.widgetItemStyle.image.insets.top = 8
         layout.widgetItemStyle.image.insets.trailing = 8
+        // Title insets are measured from the item, not the thumbnail: add the image's
+        // trailing inset so the text block stays inside the narrower thumbnail.
+        layout.widgetItemStyle.title.insets.trailing += layout.widgetItemStyle.image.insets.trailing
         return layout
     }
     
