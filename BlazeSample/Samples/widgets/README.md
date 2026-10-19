@@ -52,6 +52,11 @@ This module demonstrates the implementation and customization of various widgets
 - Its data source label is configured separately from the regular Videos widgets (`BLAZE_VIDEOS_LIVE_ROW_LABEL`)
 - Its data source always sorts with `advancedOrderType: .liveFirst`, so live streams surface ahead of upcoming/ended/VOD content regardless of the base order type
 
+### Live Catchup
+- On a live stream that has a catchup recap, the Live Video Row player shows the live catchup button, which opens the recap story. Nothing has to be set in code: the button is visible by default in `BlazeVideosPlayerStyle.base()`
+- Live catchup itself and the "Still time to catch up" popup have to be activated for your account: please contact WSC support or your DM
+- The button is styled through `videosPlayerStyle.buttons.liveCatchup` - see `CustomVideosPlayerStyleParams.swift` in the Player Style module
+
 ## Usage
 
 1. Navigate to Widgets module from main navigation
