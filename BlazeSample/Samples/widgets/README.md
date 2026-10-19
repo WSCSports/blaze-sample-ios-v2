@@ -46,6 +46,11 @@ This module demonstrates the implementation and customization of various widgets
 - Responsive design support with embedded scroll view configuration for grid layouts
 - Widget item style customization for image properties, status indicators, and positioning
 
+### Badge Images from the CMS
+- A Story, Moment, or Video can carry its own badge image, set in the CMS. No code is needed to show it, but the feature has to be activated for your account: please contact WSC support or your DM
+- The image replaces the badge background image and shows the badge even when `widgetItemStyle.badge.isVisible` is `false`. The rest of the badge style still applies
+- The badge appears once the image has loaded. If the image fails to load, the badge stays hidden for that item
+
 ### Live Video Filtering
 - The Live Video Row widget requests both VOD and stream content, across all stream states (`live`, `upcoming`, `ended`), via `BlazeVideosFilterParams(contentTypes: [.video, .stream], streamStates: [.live, .upcoming, .ended])`
 - Without this filter, a Videos widget only returns VOD content - streams are opt-in
