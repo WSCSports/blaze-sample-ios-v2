@@ -175,6 +175,8 @@ extension SwiftUIWidgetsViewModel {
             Logger.shared.log("Moments Container - onPlayerEventTriggered", object: params)
         } onTriggerCustomActionButton: { params in
             Logger.shared.log("Moments Container - onTriggerCustomActionButton", object: params)
+        } onContentRestricted: { params in
+            ContentRestrictionHandler.onContentRestricted(params)
         }
     }
     
@@ -196,6 +198,8 @@ extension SwiftUIWidgetsViewModel {
             Logger.shared.log("Moments Container Tabs - onTriggerCustomActionButton", object: params)
         } onTabSelected: { params in
             Logger.shared.log("Moments Container Tabs - onTabSelected", object: params)
+        } onContentRestricted: { params in
+            ContentRestrictionHandler.onContentRestricted(params)
         }
     }
 }

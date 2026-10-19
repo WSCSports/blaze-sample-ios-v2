@@ -162,6 +162,8 @@ extension MomentsContainerViewModel {
                 self?.handlePlayerEvent(params.event, sourceId: params.sourceId)
             },
             onSearchClicked: onSearchClicked,
+            // Called when the viewer isn't allowed to play an item. The sample shows its own paywall, see ContentRestrictionHandler.
+            onContentRestricted: ContentRestrictionHandler.onContentRestricted,
             onTriggerInteractionLink: { params in
                 Logger.shared.log("onTriggerInteractionLink", object: params)
                 return .deeplink
@@ -192,6 +194,8 @@ extension MomentsContainerViewModel {
             Logger.shared.log("ContainerTabsDelegate onTriggerCustomActionButton", object: params)
         } onTabSelected: { params in
             Logger.shared.log("ContainerTabsDelegate onTabSelected", object: params)
+        } onContentRestricted: { params in
+            ContentRestrictionHandler.onContentRestricted(params)
         } onTriggerInteractionLink: { params in
             Logger.shared.log("ContainerTabsDelegate onTriggerInteractionLink", object: params)
             return .deeplink

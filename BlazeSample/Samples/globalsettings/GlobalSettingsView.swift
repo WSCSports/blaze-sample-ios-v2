@@ -48,6 +48,20 @@ struct GlobalSettingsView: View {
                     }
                 }
 
+                Divider()
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Viewer token (content entitlements)")
+                        .font(.system(size: 14, weight: .bold))
+
+                    LabeledTextFieldWithButton(
+                        placeholder: "Enter viewer token",
+                        buttonTitle: "Submit"
+                    ) { token in
+                        setExternalUserToken(token)
+                    }
+                }
+
                 Spacer()
             }
             .padding()
@@ -87,8 +101,22 @@ struct GlobalSettingsView: View {
             Logger.shared.log("GlobalSettingsView - updateGeo - error: \(error)", level: .error)
         }
     }
-    
-    
+
+    ///Set the viewer token used for content entitlements. Leave the field empty to clear it.
+    ///
+    ///A different viewer: `.evict` drops the content fetched for the previous one and fetches it again.
+    ///Use `.keep` when the viewer stays the same and only the token is refreshed.
+    private func setExternalUserToken(_ token: String) {
+        Blaze.shared.setExternalUserToken(token, cachedContentPolicy: .evict) { result in
+            switch result {
+            case .success:
+                Logger.shared.log("GlobalSettingsView - setExternalUserToken - success")
+            case .failure(let error):
+                Logger.shared.log("GlobalSettingsView - setExternalUserToken - error: \(error)", level: .error)
+            }
+        }
+    }
+
     /// Optional - Set default style for Blaze players.
     /// If not implemented, the default style will be BlazeStoryPlayerStyle.base(),  BlazeMomentsPlayerStyle.base() and BlazeVideosPlayerStyle.base()
     ///

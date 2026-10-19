@@ -29,7 +29,9 @@ final class BlazeSDKInteractor {
             apiKey: ConfigManager.blazeApiKey,
             cachingSize: ConfigManager.defaultCacheSize,
             prefetchingPolicy: .Default,
-            geo: nil
+            geo: nil,
+            // Viewer token for content entitlements. It isn't persisted, so pass the signed-in viewer's token on every launch.
+            externalUserToken: nil
         ) { [weak self] result in
             self?.handleBlazeSdkInitializedResult(for: result)
         }
@@ -56,6 +58,11 @@ final class BlazeSDKInteractor {
         blazeSdk.delegate.onErrorThrown = { [weak self] error in
             self?.onErrorThrown(error)
         }
+        // Players opened from an entry point (play by label or id, a universal link or a push notification)
+        // report restricted content here. The sample shows its own paywall, see ContentRestrictionHandler.
+        blazeSdk.playerEntryPointDelegate = BlazePlayerEntryPointDelegate(
+            onContentRestricted: ContentRestrictionHandler.onContentRestricted
+        )
     }
 }
 

@@ -45,7 +45,8 @@ final class FollowTabsRefreshCoordinator {
                 self.hasPendingYourPicksReload = false
                 self.tabsContainer?.reloadNonActiveTabs()
             }
-        }
+        },
+        onContentRestricted: ContentRestrictionHandler.onContentRestricted
     )
 
     /// Builds the initial tab set — call once, before constructing the tabs container.
