@@ -19,6 +19,7 @@ struct BottomSheetContainerWrapper: View {
 
     let initialDataState: WidgetDataState
     let styleState: WidgetLayoutStyleState
+    let showsSubtitleAndDescription: Bool
 
     var onApply: (WidgetDataState, WidgetLayoutStyleState) -> Void
 
@@ -27,6 +28,7 @@ struct BottomSheetContainerWrapper: View {
             initialDataState: initialDataState,
             initialOptions: styleState,
             selectedDetent: $detentState.selected,
+            showsSubtitleAndDescription: showsSubtitleAndDescription,
             onApply: { newDataState, newOptions in
                 onApply(newDataState, newOptions)
                 dismiss()

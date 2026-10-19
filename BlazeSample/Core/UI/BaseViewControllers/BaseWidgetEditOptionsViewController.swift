@@ -99,6 +99,12 @@ class BaseWidgetEditOptionsViewController: BaseWidgetViewController {
     func onNewWidgetLayoutState(_ newStyle: WidgetLayoutStyleState) {
         // override in subclass if needed
     }
+
+    // Whether the "Customization examples" sheet offers the subtitle and description options.
+    // Only Moments widgets show them, so Moments screens override this to return `true`.
+    var supportsSubtitleAndDescription: Bool {
+        false
+    }
     
     private func setupCustomizationHeader() {
         view.addSubview(customizationLabel)
@@ -167,6 +173,8 @@ class BaseWidgetEditOptionsViewController: BaseWidgetViewController {
             viewModel.styleState.isCustomStatusIndicator ? "Indicator" : nil,
             viewModel.styleState.isCustomTitle ? "Title" : nil,
             viewModel.styleState.isCustomBadge ? "Badge" : nil,
+            viewModel.styleState.isSubtitleVisible ? "Subtitle" : nil,
+            viewModel.styleState.isDescriptionVisible ? "Description" : nil,
             viewModel.styleState.isCustomItemStyleOverrides ? "Item override" : nil
         ].compactMap { $0 }
 
@@ -180,7 +188,8 @@ class BaseWidgetEditOptionsViewController: BaseWidgetViewController {
         let sheetView = BottomSheetContainerWrapper(
             detentState: detentState,
             initialDataState: viewModel.widgetDataState,
-            styleState: viewModel.styleState
+            styleState: viewModel.styleState,
+            showsSubtitleAndDescription: supportsSubtitleAndDescription
         ) { [weak self] newDataState, newOptions in
             self?.viewModel.widgetDataState = newDataState
             self?.viewModel.styleState = newOptions
@@ -191,10 +200,11 @@ class BaseWidgetEditOptionsViewController: BaseWidgetViewController {
         hostingController.modalPresentationStyle = .pageSheet
 
         if let sheet = hostingController.sheetPresentationController {
+            let customizationHeight: CGFloat = supportsSubtitleAndDescription ? 460 : 396
             sheet.detents = [
                 .custom(identifier: .init(EditOptionSheetContent.mainMenu.rawValue)) { _ in 240 },
                 .custom(identifier: .init(EditOptionSheetContent.editSource.rawValue)) { _ in 500 },
-                .custom(identifier: .init(EditOptionSheetContent.customization.rawValue)) { _ in 396 }
+                .custom(identifier: .init(EditOptionSheetContent.customization.rawValue)) { _ in customizationHeight }
             ]
             sheet.selectedDetentIdentifier = detentState.selected
             sheet.prefersGrabberVisible = true
