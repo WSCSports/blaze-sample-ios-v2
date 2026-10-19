@@ -55,6 +55,7 @@ enum FollowTabsConfiguration {
     }
 
     /// Entity offered to follow is resolved player -> team -> property.
+    /// The follow chip shows a star: outlined while unfollowed, filled once followed.
     static func makePlayerStyle() -> BlazeMomentsPlayerStyle {
         let wscAccentColor = UIColor(hex: "E5FF00") ?? .systemYellow
         var style = Blaze.shared.getDefaultMomentsPlayerStyle()
@@ -69,6 +70,9 @@ enum FollowTabsConfiguration {
         style.followEntity.followState.avatar.borderColor = wscAccentColor
         style.followEntity.followState.chip.backgroundColor = wscAccentColor
         style.followEntity.followState.chip.iconColor = .black
+        // Each chip state has its own icon source, so set both to keep the star consistent.
+        style.followEntity.unfollowState.chip.iconSource = .star
+        style.followEntity.followState.chip.iconSource = .star
         return style
     }
 }
