@@ -87,6 +87,11 @@ final class MomentsContainerViewModel {
     lazy var tabsStyle: BlazePlayerTabsStyle = {
         var style = BlazePlayerTabsStyle.base()
         style.isTabTitleVisibleWhenSingleTab = false // In case of a single tab - tab title is not visible
+        // The iOS 26 tab bar floats over the content, so let the video extend behind it.
+        // The player controls stay above the tab bar.
+        if #available(iOS 26.0, *) {
+            style.ignoresBottomSafeArea = true
+        }
         return style
     }()
 
