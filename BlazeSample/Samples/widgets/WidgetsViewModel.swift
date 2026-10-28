@@ -203,6 +203,9 @@ final class WidgetsViewModel {
         layout.horizontalItemsSpacing = 0
         layout.widgetItemStyle.image.insets.top = 16
         layout.widgetItemStyle.image.insets.trailing = 8
+        // Title insets are measured from the item, not the thumbnail: add the image's
+        // trailing inset so the text block stays inside the narrower thumbnail.
+        layout.widgetItemStyle.title.insets.trailing += layout.widgetItemStyle.image.insets.trailing
         layout.widgetItemStyle.statusIndicator.isVisible = true
         layout.widgetItemStyle.statusIndicator.position.xPosition = .leadingToLeading(offset: 8)
         layout.widgetItemStyle.statusIndicator.position.yPosition = .topToTop(offset: 8)

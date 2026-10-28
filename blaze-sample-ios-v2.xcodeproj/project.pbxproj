@@ -398,7 +398,7 @@
 			repositoryURL = "https://github.com/WSCSports/blaze-specs-ios";
 			requirement = {
 				kind = exactVersion;
-				version = 1.20.0;
+				version = 1.21.4;
 			};
 		};
 		503374A62E0EAB84007F1F48 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {

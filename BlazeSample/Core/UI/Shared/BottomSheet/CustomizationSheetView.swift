@@ -10,6 +10,8 @@ import SwiftUI
 struct CustomizationSheetView: View {
     @Binding var options: WidgetLayoutStyleState
     let showsStaticThumbnailsOption: Bool
+    // Subtitle and description are shown on Moments widgets only.
+    let showsSubtitleAndDescription: Bool
     var onApply: () -> Void
 
     @State private var draftOptions = WidgetLayoutStyleState()
@@ -34,6 +36,11 @@ struct CustomizationSheetView: View {
                 checkboxRow(title: "Custom status indicator", isOn: $draftOptions.isCustomStatusIndicator)
                 checkboxRow(title: "Custom title", isOn: $draftOptions.isCustomTitle)
                 checkboxRow(title: "Custom badge", isOn: $draftOptions.isCustomBadge)
+
+                if showsSubtitleAndDescription {
+                    checkboxRow(title: "Show subtitle", isOn: $draftOptions.isSubtitleVisible)
+                    checkboxRow(title: "Show description", isOn: $draftOptions.isDescriptionVisible)
+                }
 
                 Divider()
 
