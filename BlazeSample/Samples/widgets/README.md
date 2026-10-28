@@ -46,6 +46,12 @@ This module demonstrates the implementation and customization of various widgets
 - Responsive design support with embedded scroll view configuration for grid layouts
 - Widget item style customization for image properties, status indicators, and positioning
 
+### Subtitle and Description
+- The Moments Row and Moments Grid screens add "Subtitle" and "Description" options to "Customization examples"
+- "Subtitle" turns on `widgetItemStyle.subtitle` and "Description" turns on `widgetItemStyle.description`. They show each moment's subtitle and description under its title, and both are hidden by default
+- The title, subtitle, and description form one text block in that order, placed with the title's `position`, so the subtitle and description have no position of their own. With the subtitle hidden, the description sits right under the title. `topSpacing` sets the space above each line
+- Only Moments widgets show these lines, so the options are not offered on Stories and Videos screens
+ 
 ### Badge Images from the CMS
 - A Story, Moment, or Video can carry its own badge image, set in the CMS. No code is needed to show it, but the feature has to be activated for your account: please contact WSC support or your DM
 - The image replaces the badge background image and shows the badge even when `widgetItemStyle.badge.isVisible` is `false`. The rest of the badge style still applies
