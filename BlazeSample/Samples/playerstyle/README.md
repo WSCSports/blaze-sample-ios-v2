@@ -35,7 +35,7 @@ This module demonstrates how to use and customize Blaze player styles for Storie
 
 #### CustomVideosPlayerStyleParams.swift
 - Contains customization logic for Videos player style.
-- Implements video-specific button set: mute, exit, share, like, playPause, previous, next.
+- Implements video-specific button set: mute, exit, share, like, playPause, previous, next, liveCatchup.
 - Provides CTA button customization with visibility control options (always visible or timed).
 - Includes seek bar optimization specifically designed for video playback experience.
 - Integrates both custom assets and system SF Symbols with proper sizing configuration.
@@ -65,7 +65,8 @@ This module demonstrates how to use and customize Blaze player styles for Storie
 - Advanced first time slide with multiple instruction types
 
 ### Videos Player Style
-- Player buttons specific to video content (seven button types available)
+- Player buttons specific to video content (eight button types available)
+- Live catchup button: `buttons.liveCatchup` opens the recap story on a live stream that has one. It is visible by default, but live catchup itself and the "Still time to catch up" popup have to be activated for your account: please contact WSC support or your DM. Hiding the button (`isVisible = false`) hides only the button and its unread indicator; the catchup popup and banner still show.
 - CTA button with visibility behavior control
 - Seek bar customization for video playback optimization
 - Asset integration using both custom app icons and system SF Symbols

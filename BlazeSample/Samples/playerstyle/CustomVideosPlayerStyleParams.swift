@@ -220,5 +220,8 @@ extension BlazeVideosPlayerStyle {
         buttons.audio.height = 48
         buttons.audio.contentHorizontalAlignment = .center
         buttons.audio.contentVerticalAlignment = .center
+        // Live catchup button configuration: opens the recap story on a live stream that has one. Visible by default.
+        // Live catchup has to be activated for your account: please contact WSC support or your DM.
+        buttons.liveCatchup.isVisible = true
     }
 }

@@ -81,7 +81,9 @@ final class BlazeSDKInteractor {
             apiKey: ConfigManager.blazeApiKey,
             cachingSize: ConfigManager.defaultCacheSize,
             prefetchingPolicy: .Default,
-            geo: nil
+            geo: nil,
+            // Viewer token for content entitlements. It isn't persisted, so pass the signed-in viewer's token on every launch.
+            externalUserToken: nil
         ) { [weak self] result in
             self?.handleBlazeSdkInitalResult(for: result)
         }
@@ -222,6 +224,7 @@ BlazeSDK can be integrated using multiple approaches:
 - SDK-wide configuration options
 - Global behavior settings
 - Centralized customization
+- Setting the viewer token for content entitlements, with a sample paywall (`ContentRestrictionHandler` and `PaywallAlert` in `Core/Shared`) shown when the viewer isn't allowed to watch an item
 
 ## xcconfig Configuration
 
