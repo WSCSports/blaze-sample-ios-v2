@@ -325,7 +325,8 @@ internal class VideosPaginatingFeedViewModel: ObservableObject {
             },
             onPlaceholderClicked: { args in
                 print("Video \(itemId) placeholder clicked")
-            }
+            },
+            onContentRestricted: ContentRestrictionHandler.onContentRestricted
         )
     }
 }

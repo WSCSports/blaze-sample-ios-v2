@@ -162,7 +162,7 @@ internal struct BlazeInFeedVideoPlayerView: View {
             playerController: playerController,
             embeddedState: newState
         )
-        .inlinePlayerDelegate(inlinePlayerDelegate ?? BlazeInlinePlayerDelegate())
+        .inlinePlayerDelegate(inlinePlayerDelegate ?? BlazeInlinePlayerDelegate(onContentRestricted: ContentRestrictionHandler.onContentRestricted))
     }
 }
 

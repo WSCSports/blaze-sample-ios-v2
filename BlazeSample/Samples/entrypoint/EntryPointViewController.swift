@@ -12,7 +12,6 @@ struct EntryPointDefaultValues {
     static let PUSH_INTENT_WSC_DATA_EXTRA_PARAM = "WscIasData"
     static let UNIVERSAL_LINK_SPANNABLE_TEXT = "https://your-link.com"
     static let UNIVERSAL_LINK_URI = "https://blazesample.clipro.tv/moments/684943a1a26bafd24a1f9ea9"
-    static let STORY_ID_EXAMPLE = "684ac5d9755bfece433b8865"
 }
 
 final class EntryPointViewController: UIViewController {
@@ -89,15 +88,19 @@ final class EntryPointViewController: UIViewController {
     /// This method also demonstrates how to use the `entryContentId` param.
     /// For more information, refer to https://dev.wsc-sports.com/docs/ios-methods#/.
     ///
-    func playStoriesByInput(labelExpression: String) {
+    /// - Parameter entryContentId: Optional id of a story from your app to open first. If this story id is part of
+    ///   the `storiesDataSource` response, it will be moved to the front of the list, otherwise it will be added to
+    ///   the front of the list.
+    ///
+    func playStoriesByInput(labelExpression: String, entryContentId: String? = nil) {
         let storiesDataSource = BlazeDataSourceType.labels(.singleLabel(labelExpression))
-        
-        // If this story id is part of the `storiesDataSource` response, it will be moved to the front of the list,
-        // otherwise it will be added to the front of the list.
-        let entryContentId = EntryPointDefaultValues.STORY_ID_EXAMPLE
-        
+
         Blaze.shared.playStories(dataSourceType: storiesDataSource,
-                                 entryContentId: entryContentId)
+                                 entryContentId: entryContentId) { result in
+            if case .failure(let error) = result {
+                Logger.shared.log("playStoriesByInput - error: \(error.errorMessage)", level: .error)
+            }
+        }
     }
     
     ///

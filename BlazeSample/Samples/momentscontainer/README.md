@@ -79,6 +79,19 @@ The tabs container also supports styling through `BlazePlayerTabsStyle`:
 
 The tabs style is configured using `BlazePlayerTabsStyle.base()` and can be further customized to match your app's design requirements.
 
+### Safe Areas
+
+`ignoresBottomSafeArea` and `ignoresTopSafeArea` let the tabs content extend behind the host app's bottom or top safe area, such as a tab bar. The player controls and the tabs bar stay inside the safe area. The defaults (`false` and `true`) keep the current behavior.
+
+The demo hosts the tabs container in a `UITabBarController`. On iOS 26 and later, where the tab bar floats over the content, it sets `ignoresBottomSafeArea = true` so the video continues behind the tab bar:
+
+```swift
+var style = BlazePlayerTabsStyle.base()
+if #available(iOS 26.0, *) {
+    style.ignoresBottomSafeArea = true
+}
+```
+
 ## Usage
 
 1. **Launch**: The module is launched via `MomentsContainerViewController`.
