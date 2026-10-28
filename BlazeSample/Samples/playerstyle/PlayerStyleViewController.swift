@@ -162,7 +162,7 @@ final class PlayerStyleViewController: UIViewController {
         widget.shouldOrderWidgetByReadStatus = true
         widget.videosPlayerStyle = viewModel.defaultVideosPlayerStyle
 
-        let section = WidgetSectionView(height: 252, title: "Defaule Videos Player Style")
+        let section = WidgetSectionView(height: 252, title: "Default Videos Player Style")
         widget.embedInView(section.containerView)
         widget.reloadData(progressType: .skeleton)
         contentView.stackView.addArrangedSubview(section)
