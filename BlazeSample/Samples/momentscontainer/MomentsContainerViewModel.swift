@@ -199,6 +199,10 @@ extension MomentsContainerViewModel {
         } onTriggerInteractionLink: { params in
             Logger.shared.log("ContainerTabsDelegate onTriggerInteractionLink", object: params)
             return .deeplink
+        } onTabReselected: { [weak self] params in
+            // Called only when the user taps the already-selected tab title; reload it to fetch fresh content.
+            Logger.shared.log("ContainerTabsDelegate onTabReselected", object: params)
+            self?.momentsTabsContainer.reloadTab(at: params.tabIndex)
         }
     }
 }
