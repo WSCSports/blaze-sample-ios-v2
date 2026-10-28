@@ -11,7 +11,8 @@ import BlazeSDK
 struct GlobalSettingsView: View {
     
     @State private var doNotTrackUser = Blaze.shared.doNotTrackUser
-    
+    @State private var isLiquidGlassEnabled = Blaze.shared.isLiquidGlassEnabled
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 38) {
@@ -19,7 +20,19 @@ struct GlobalSettingsView: View {
                     Text("Do not track user")
                         .font(.system(size: 14, weight: .bold))
                 }
-                
+
+                Divider()
+
+                Toggle(isOn: $isLiquidGlassEnabled) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Liquid Glass (iOS 26+)")
+                            .font(.system(size: 14, weight: .bold))
+                        Text("Applies to widgets and players opened after the change")
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
+                    }
+                }
+
                 Divider()
 
                 VStack(alignment: .leading, spacing: 8) {
@@ -70,6 +83,9 @@ struct GlobalSettingsView: View {
         .customBackButton()
         .onChange(of: doNotTrackUser) { newValue in
             updateUserTrackStatus()
+        }
+        .onChange(of: isLiquidGlassEnabled) { newValue in
+            updateLiquidGlassStatus()
         }
     }
     
@@ -151,6 +167,17 @@ struct GlobalSettingsView: View {
     /// https://dev.wsc-sports.com/docs/ios-methods#donottrackuser
     func updateUserTrackStatus() {
         Blaze.shared.doNotTrackUser = doNotTrackUser
+    }
+
+    /// Turns Liquid Glass on or off for the SDK's player and widget controls (default is `false`).
+    /// Takes effect on iOS 26 and later. The value is read when a widget or player style is applied,
+    /// so it affects widgets and players created after the change.
+    /// Individual elements can override it with their style's `glassBackground` (`.automatic`, `.on`, `.off`).
+    ///
+    /// See the documentation for more information:
+    /// https://dev.wsc-sports.com/docs/ios-liquid-glass
+    func updateLiquidGlassStatus() {
+        Blaze.shared.isLiquidGlassEnabled = isLiquidGlassEnabled
     }
 }
 

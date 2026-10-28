@@ -8,6 +8,7 @@ This module demonstrates how to use and configure global settings in the Blaze S
 - The main entry point for the globalsettings module.
 - Provides a SwiftUI interface for configuring global BlazeSDK settings, including:
   - **Do Not Track**: Toggle user tracking on or off for the SDK.
+  - **Liquid Glass**: Toggle `Blaze.shared.isLiquidGlassEnabled` to render Liquid Glass behind the SDK's player and widget controls on iOS 26 and later. The value is read when a widget or player style is applied, so it affects widgets and players opened after the change. Individual elements can override it with their style's `glassBackground` (`.automatic`, `.on`, `.off`).
   - **External User ID**: Set an external user ID for the SDK, useful for analytics and user-specific features.
   - **Geo Location**: Update the geo location restriction for the SDK, which can affect content availability.
 - **Default Player Styles**: Set the default styles for Blaze Story and Moments players programmatically in code (not via the UI). If not set, the SDK uses its own base styles.
