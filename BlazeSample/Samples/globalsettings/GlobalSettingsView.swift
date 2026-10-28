@@ -61,10 +61,14 @@ struct GlobalSettingsView: View {
     
     ///Set external user id for BlazeSDK.
     ///
+    ///The SDK supports exactly two states: `nil` (no user) or a non-empty string.
+    ///Submitting an empty/whitespace-only value clears the external user id.
+    ///
     ///More information about external user id can be found in the documentation
     ///https://dev.wsc-sports.com/docs/ios-methods#external-user
     private func setExternalUserId(_ userId: String) {
-        Blaze.shared.setExternalUserId(userId) { result in
+        let trimmedUserId = userId.trimmingCharacters(in: .whitespacesAndNewlines)
+        Blaze.shared.setExternalUserId(trimmedUserId.isEmpty ? nil : trimmedUserId) { result in
             switch result {
             case .success:
                 Logger.shared.log("GlobalSettingsView - setExternalUserId - success")
