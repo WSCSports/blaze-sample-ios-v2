@@ -40,6 +40,7 @@ This module demonstrates how to use and customize Blaze player styles for Storie
 - Includes seek bar optimization specifically designed for video playback experience.
 - Integrates both custom assets and system SF Symbols with proper sizing configuration.
 - Demonstrates the overlay "hide time" (`overlayVisibilityThreshold`) — see `applyCustomOverlayVisibility()`.
+- Configures the audio track button (`buttons.audio`), which lets viewers switch between the audio tracks of a live stream.
 
 ## Player Style Customization Options
 
@@ -71,6 +72,7 @@ This module demonstrates how to use and customize Blaze player styles for Storie
 - Asset integration using both custom app icons and system SF Symbols
 - Consistent color theming using app accent color
 - Overlay "hide time" (`overlayVisibilityThreshold`) — how long the controls stay visible before auto-hiding
+- Audio track button (`buttons.audio`): visible by default, and shown only in the full-screen player on a live stream with more than one audio track, such as different commentary feeds
 
 **Note**: Videos player style has limitations compared to Stories and Moments players. It does not support background color customization, text overlays, chip indicators, first time slide onboarding, or gradient configurations.
 
