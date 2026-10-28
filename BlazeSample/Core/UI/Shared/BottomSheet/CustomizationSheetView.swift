@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CustomizationSheetView: View {
     @Binding var options: WidgetLayoutStyleState
+    let showsStaticThumbnailsOption: Bool
     // Subtitle and description are shown on Moments widgets only.
     let showsSubtitleAndDescription: Bool
     var onApply: () -> Void
@@ -48,6 +49,12 @@ struct CustomizationSheetView: View {
                     subTitle: "Changes will appear on the second item",
                     isOn: $draftOptions.isCustomItemStyleOverrides
                 )
+
+                if showsStaticThumbnailsOption {
+                    Divider()
+
+                    checkboxRow(title: "Static thumbnails (no GIFs)", isOn: $draftOptions.isStaticThumbnails)
+                }
             }
 
             Divider()

@@ -45,6 +45,7 @@ This module demonstrates the implementation and customization of various widgets
 - Custom styling options include spacing, insets, status indicators, and visual property modifications
 - Responsive design support with embedded scroll view configuration for grid layouts
 - Widget item style customization for image properties, status indicators, and positioning
+- Animated thumbnails (Stories, Moments and Videos rows): these rows use the animated presets (e.g. `StoriesWidget.Row.animatedThumbnailsCircles`), so their GIF thumbnails play one at a time by default, and the "Static thumbnails (no GIFs)" option turns them off via `widgetItemStyle.image.animatedThumbnail.isEnabled = false`
 
 ### Subtitle and Description
 - The Moments Row and Moments Grid screens add "Subtitle" and "Description" options to "Customization examples"

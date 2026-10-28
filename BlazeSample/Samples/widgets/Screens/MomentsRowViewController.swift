@@ -81,6 +81,10 @@ class MomentsRowViewController: BaseWidgetEditOptionsViewController {
         if styleState.isDescriptionVisible {
             setDescriptionStyle(for: &layout.widgetItemStyle.description)
         }
+
+        if styleState.isStaticThumbnails {
+            layout.widgetItemStyle.image.animatedThumbnail.isEnabled = false
+        }
         
         widgetView?.reloadLayout(with: layout)
 
