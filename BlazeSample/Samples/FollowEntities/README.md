@@ -11,6 +11,7 @@ the "Follow Entities" entry on the Home screen, which lists both variants.
 - Shared builder for the three-tab moments widget configuration (`Trending`, `For You`, `Your Picks`) and the moments player style with the follow button. Keeps the tab setup identical across both variants
 - `Your Picks` blends the user's followed entity labels with the general highlights label, ranks the followed entities first via `labelsPriority` (most recently followed on top) and sorts within the same priority with `orderType: .recentlyUpdatedFirst`, so personalized content leads and general highlights fill in whenever it runs short
 - The in-player follow button is enabled on the tabs container's player style with entity resolution `Player -> Team -> Property`. A single player style applies to the whole tabs container, so the button appears on every tab
+- The follow chip uses the star icon (`iconSource = .star`): an outlined star while unfollowed and a filled star once followed. Each chip state has its own `iconSource`, so it's set on both `followEntity.unfollowState.chip` and `followEntity.followState.chip`. `.default` keeps the `+` and the checkmark
 
 ### FollowTabsRefreshCoordinator
 - Shared refresh choreography for the `Your Picks` tab, used by both variants so the behavior lives in one place

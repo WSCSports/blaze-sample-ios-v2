@@ -26,7 +26,12 @@ extension BlazeStoryPlayerStyle {
         // Story title appearance
         style.title.textColor = .white
         style.title.font = .systemFont(ofSize: 12)
-        
+
+        // Story subtitle appearance (shown under the story title when available)
+        style.subtitle.isVisible = true
+        style.subtitle.textColor = StoryPlayerStyleConstants.progressBarColor
+        style.subtitle.font = .italicSystemFont(ofSize: 12)
+
          // Story last update appearance
          style.lastUpdate.textColor = .white
          style.lastUpdate.font = .systemFont(ofSize: 12)

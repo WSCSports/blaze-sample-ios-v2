@@ -30,6 +30,10 @@ class MomentsRowViewController: BaseWidgetEditOptionsViewController {
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override var supportsSubtitleAndDescription: Bool {
+        true
+    }
     
     override func initWidgetView() {
         // ⚠️ Important: If you need to customize the layout (e.g., number of columns, spacing, etc.),
@@ -68,6 +72,18 @@ class MomentsRowViewController: BaseWidgetEditOptionsViewController {
         
         if styleState.isCustomBadge {
             setMyCustomBadgeStyle(for: &layout.widgetItemStyle.badge)
+        }
+
+        if styleState.isSubtitleVisible {
+            setSubtitleStyle(for: &layout.widgetItemStyle.subtitle)
+        }
+        
+        if styleState.isDescriptionVisible {
+            setDescriptionStyle(for: &layout.widgetItemStyle.description)
+        }
+
+        if styleState.isStaticThumbnails {
+            layout.widgetItemStyle.image.animatedThumbnail.isEnabled = false
         }
         
         widgetView?.reloadLayout(with: layout)
@@ -142,6 +158,21 @@ class MomentsRowViewController: BaseWidgetEditOptionsViewController {
         titleStyle.readState.numberOfLines = 1
         
         titleStyle.unreadState = titleStyle.readState
+    }
+    
+    // for more information see https://dev.wsc-sports.com/docs/ios-blaze-widget-item-subtitle-style
+    private func setSubtitleStyle(for subtitleStyle: inout BlazeWidgetItemSubtitleStyle) {
+        // Hidden by default. Shown under the title as part of one text block placed with
+        // the title's position, so it has no position of its own.
+        subtitleStyle.isVisible = true
+        subtitleStyle.topSpacing = 4
+    }
+    
+    // for more information see https://dev.wsc-sports.com/docs/ios-blaze-widget-item-description-style
+    private func setDescriptionStyle(for descriptionStyle: inout BlazeWidgetItemDescriptionStyle) {
+        // Hidden by default. Shown under the subtitle, or under the title when the subtitle is hidden.
+        descriptionStyle.isVisible = true
+        descriptionStyle.topSpacing = 2
     }
     
     // for more information see https://dev.wsc-sports.com/docs/blazewidgetitembadgestyle#/

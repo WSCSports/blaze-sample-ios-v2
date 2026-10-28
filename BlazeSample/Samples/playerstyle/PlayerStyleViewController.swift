@@ -126,7 +126,7 @@ final class PlayerStyleViewController: UIViewController {
     }
     
     private func initCustomMomentsRowWidget() {
-        let widgetLayout = viewModel.momentsWidgetLayout
+        let widgetLayout = viewModel.customMomentsWidgetLayout
         
         let dataSource = BlazeDataSourceType.labels(
             .singleLabel(ConfigManager.momentsRowLabel)
@@ -162,7 +162,7 @@ final class PlayerStyleViewController: UIViewController {
         widget.shouldOrderWidgetByReadStatus = true
         widget.videosPlayerStyle = viewModel.defaultVideosPlayerStyle
 
-        let section = WidgetSectionView(height: 252, title: "Defaule Videos Player Style")
+        let section = WidgetSectionView(height: 252, title: "Default Videos Player Style")
         widget.embedInView(section.containerView)
         widget.reloadData(progressType: .skeleton)
         contentView.stackView.addArrangedSubview(section)
@@ -171,7 +171,7 @@ final class PlayerStyleViewController: UIViewController {
     }
     
     private func initCustomVideosRowWidget() {
-        let widgetLayout = viewModel.videosRowBaseSingleItemLayout
+        let widgetLayout = viewModel.customVideosRowSingleItemLayout
         
         let dataSource = BlazeDataSourceType.labels(
             .singleLabel(ConfigManager.videosRowLabel)

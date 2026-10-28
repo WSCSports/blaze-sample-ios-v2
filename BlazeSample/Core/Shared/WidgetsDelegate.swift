@@ -54,6 +54,14 @@ final class WidgetsDelegate {
             onTriggerCustomActionButton: { params in
                 let logIdentifier = identifier ?? "Unknown"
                 Logger.shared.log("[\(logIdentifier)] Custom action triggered - Widget: \(params.sourceId ?? "unknown"), Button: \(params.customActionParams)", object: params.customActionParams)
+            },
+            // Called when the viewer isn't allowed to play an item. The sample shows its own paywall, see ContentRestrictionHandler.
+            onContentRestricted: ContentRestrictionHandler.onContentRestricted,
+            onTriggerInteractionLink: { params in
+                let logIdentifier = identifier ?? "Unknown"
+                Logger.shared.log("[\(logIdentifier)] Interaction link triggered - Widget: \(params.sourceId ?? "unknown"), Interaction: \(params.interactionType) \(params.interactionId), URL: \(params.url)")
+                // Return .deeplink (default) to open externally, .web for the SDK's in-app web view, or .handled if the app handled it
+                return .deeplink
             }
         )
     }

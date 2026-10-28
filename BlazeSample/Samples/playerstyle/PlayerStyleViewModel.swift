@@ -43,12 +43,28 @@ final class PlayerStyleViewModel: ObservableObject {
         layout.horizontalItemsSpacing = 8
         layout.widgetItemStyle.image.insets.top = 8
         layout.widgetItemStyle.image.insets.trailing = 8
+        // Title insets are measured from the item, not the thumbnail: add the image's
+        // trailing inset so the text block stays inside the narrower thumbnail.
+        layout.widgetItemStyle.title.insets.trailing += layout.widgetItemStyle.image.insets.trailing
         return layout
     }
     
     var videosRowBaseSingleItemLayout: BlazeWidgetLayout {
         var layout = BlazeWidgetLayout.Presets.VideosWidget.Row.singleItemHorizontalRectangle
         layout.margins = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
+        return layout
+    }
+
+    /// The play icon overlay is hidden by default on every preset.
+    var customMomentsWidgetLayout: BlazeWidgetLayout {
+        var layout = momentsWidgetLayout
+        layout.widgetItemStyle.playIconElement.isVisible = true
+        return layout
+    }
+
+    var customVideosRowSingleItemLayout: BlazeWidgetLayout {
+        var layout = videosRowBaseSingleItemLayout
+        layout.widgetItemStyle.playIconElement.isVisible = true
         return layout
     }
     

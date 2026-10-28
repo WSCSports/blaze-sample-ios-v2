@@ -30,7 +30,10 @@ struct WidgetLayoutStyleState: Equatable {
     var isCustomStatusIndicator: Bool = false
     var isCustomTitle: Bool = false
     var isCustomBadge: Bool = false
+    var isSubtitleVisible: Bool = false
+    var isDescriptionVisible: Bool = false
     var isCustomItemStyleOverrides: Bool = false
+    var isStaticThumbnails: Bool = false
 }
 
 struct EditOptionsBottomSheetContainer: View {
@@ -40,17 +43,23 @@ struct EditOptionsBottomSheetContainer: View {
     @State var draftOptions: WidgetLayoutStyleState
     @Binding var selectedDetent: UISheetPresentationController.Detent.Identifier
 
+    let showsStaticThumbnailsOption: Bool
+    let showsSubtitleAndDescription: Bool
     let onApply: (WidgetDataState, WidgetLayoutStyleState) -> Void
 
     init(
         initialDataState: WidgetDataState,
         initialOptions: WidgetLayoutStyleState,
+        showsStaticThumbnailsOption: Bool,
         selectedDetent: Binding<UISheetPresentationController.Detent.Identifier>,
+        showsSubtitleAndDescription: Bool,
         onApply: @escaping (WidgetDataState, WidgetLayoutStyleState) -> Void
     ) {
         self._draftDataState = .init(initialValue: initialDataState)
         self._draftOptions = .init(initialValue: initialOptions)
+        self.showsStaticThumbnailsOption = showsStaticThumbnailsOption
         self._selectedDetent = selectedDetent
+        self.showsSubtitleAndDescription = showsSubtitleAndDescription
         self.onApply = onApply
     }
 
@@ -70,6 +79,8 @@ struct EditOptionsBottomSheetContainer: View {
             case .customization:
                 CustomizationSheetView(
                     options: $draftOptions,
+                    showsStaticThumbnailsOption: showsStaticThumbnailsOption,
+                    showsSubtitleAndDescription: showsSubtitleAndDescription,
                     onApply: applyAndDismiss
                 )
                 .onAppear { selectedDetent = .init(EditOptionSheetContent.customization.rawValue) }

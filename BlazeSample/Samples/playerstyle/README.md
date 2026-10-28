@@ -35,11 +35,12 @@ This module demonstrates how to use and customize Blaze player styles for Storie
 
 #### CustomVideosPlayerStyleParams.swift
 - Contains customization logic for Videos player style.
-- Implements video-specific button set: mute, exit, share, like, playPause, previous, next.
+- Implements video-specific button set: mute, exit, share, like, playPause, previous, next, liveCatchup.
 - Provides CTA button customization with visibility control options (always visible or timed).
 - Includes seek bar optimization specifically designed for video playback experience.
 - Integrates both custom assets and system SF Symbols with proper sizing configuration.
 - Demonstrates the overlay "hide time" (`overlayVisibilityThreshold`) — see `applyCustomOverlayVisibility()`.
+- Configures the audio track button (`buttons.audio`), which lets viewers switch between the audio tracks of a live stream.
 
 ## Player Style Customization Options
 
@@ -64,12 +65,14 @@ This module demonstrates how to use and customize Blaze player styles for Storie
 - Advanced first time slide with multiple instruction types
 
 ### Videos Player Style
-- Player buttons specific to video content (seven button types available)
+- Player buttons specific to video content (eight button types available)
+- Live catchup button: `buttons.liveCatchup` opens the recap story on a live stream that has one. It is visible by default, but live catchup itself and the "Still time to catch up" popup have to be activated for your account: please contact WSC support or your DM. Hiding the button (`isVisible = false`) hides only the button and its unread indicator; the catchup popup and banner still show.
 - CTA button with visibility behavior control
 - Seek bar customization for video playback optimization
 - Asset integration using both custom app icons and system SF Symbols
 - Consistent color theming using app accent color
 - Overlay "hide time" (`overlayVisibilityThreshold`) — how long the controls stay visible before auto-hiding
+- Audio track button (`buttons.audio`): visible by default, and shown only in the full-screen player on a live stream with more than one audio track, such as different commentary feeds
 
 **Note**: Videos player style has limitations compared to Stories and Moments players. It does not support background color customization, text overlays, chip indicators, first time slide onboarding, or gradient configurations.
 
@@ -108,6 +111,19 @@ style.overlayVisibilityThreshold = 6
 ```
 
 The custom Videos player style demonstrates this via `applyCustomOverlayVisibility()` — open the "Custom Videos Player Style" widget's player and note the controls stay visible longer than the default row.
+
+## Play Icon Overlay
+
+`BlazeWidgetItemStyle.playIconElement` renders a play icon centered on the widget item's thumbnail. It is hidden by default on every preset, so it has to be enabled explicitly. Only visibility is customizable — the SDK ships a single built-in design.
+
+```swift
+var layout = BlazeWidgetLayout.Presets.MomentsWidget.Row.verticalAnimatedThumbnailsRectangles
+layout.widgetItemStyle.playIconElement.isVisible = true
+```
+
+The demo enables it on the custom rows only, via `customMomentsWidgetLayout` and `customVideosRowSingleItemLayout` — compare "Custom Moments Player Style" against "Default Moments Player Style" (and the same pair for Videos) to see the thumbnails with and without the overlay.
+
+**Note**: this is a widget item property rather than a player style one. It configures the row's thumbnails, not the controls inside the player, and is therefore set on the layout instead of on `BlazePlayerStyle`.
 
 ## Playback Configuration
 

@@ -11,7 +11,8 @@ import BlazeSDK
 struct GlobalSettingsView: View {
     
     @State private var doNotTrackUser = Blaze.shared.doNotTrackUser
-    
+    @State private var isLiquidGlassEnabled = Blaze.shared.isLiquidGlassEnabled
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 38) {
@@ -19,7 +20,19 @@ struct GlobalSettingsView: View {
                     Text("Do not track user")
                         .font(.system(size: 14, weight: .bold))
                 }
-                
+
+                Divider()
+
+                Toggle(isOn: $isLiquidGlassEnabled) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Liquid Glass (iOS 26+)")
+                            .font(.system(size: 14, weight: .bold))
+                        Text("Applies to widgets and players opened after the change")
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
+                    }
+                }
+
                 Divider()
 
                 VStack(alignment: .leading, spacing: 8) {
@@ -48,6 +61,20 @@ struct GlobalSettingsView: View {
                     }
                 }
 
+                Divider()
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Viewer token (content entitlements)")
+                        .font(.system(size: 14, weight: .bold))
+
+                    LabeledTextFieldWithButton(
+                        placeholder: "Enter viewer token",
+                        buttonTitle: "Submit"
+                    ) { token in
+                        setExternalUserToken(token)
+                    }
+                }
+
                 Spacer()
             }
             .padding()
@@ -56,6 +83,9 @@ struct GlobalSettingsView: View {
         .customBackButton()
         .onChange(of: doNotTrackUser) { newValue in
             updateUserTrackStatus()
+        }
+        .onChange(of: isLiquidGlassEnabled) { newValue in
+            updateLiquidGlassStatus()
         }
     }
     
@@ -91,8 +121,22 @@ struct GlobalSettingsView: View {
             Logger.shared.log("GlobalSettingsView - updateGeo - error: \(error)", level: .error)
         }
     }
-    
-    
+
+    ///Set the viewer token used for content entitlements. Leave the field empty to clear it.
+    ///
+    ///A different viewer: `.evict` drops the content fetched for the previous one and fetches it again.
+    ///Use `.keep` when the viewer stays the same and only the token is refreshed.
+    private func setExternalUserToken(_ token: String) {
+        Blaze.shared.setExternalUserToken(token, cachedContentPolicy: .evict) { result in
+            switch result {
+            case .success:
+                Logger.shared.log("GlobalSettingsView - setExternalUserToken - success")
+            case .failure(let error):
+                Logger.shared.log("GlobalSettingsView - setExternalUserToken - error: \(error)", level: .error)
+            }
+        }
+    }
+
     /// Optional - Set default style for Blaze players.
     /// If not implemented, the default style will be BlazeStoryPlayerStyle.base(),  BlazeMomentsPlayerStyle.base() and BlazeVideosPlayerStyle.base()
     ///
@@ -127,6 +171,17 @@ struct GlobalSettingsView: View {
     /// https://dev.wsc-sports.com/docs/ios-methods#donottrackuser
     func updateUserTrackStatus() {
         Blaze.shared.doNotTrackUser = doNotTrackUser
+    }
+
+    /// Turns Liquid Glass on or off for the SDK's player and widget controls (default is `false`).
+    /// Takes effect on iOS 26 and later. The value is read when a widget or player style is applied,
+    /// so it affects widgets and players created after the change.
+    /// Individual elements can override it with their style's `glassBackground` (`.automatic`, `.on`, `.off`).
+    ///
+    /// See the documentation for more information:
+    /// https://dev.wsc-sports.com/docs/ios-liquid-glass
+    func updateLiquidGlassStatus() {
+        Blaze.shared.isLiquidGlassEnabled = isLiquidGlassEnabled
     }
 }
 
